@@ -21,7 +21,8 @@ document.documentElement.classList.add('js');
   const items = [...document.querySelectorAll('#timeline li')];
   const status = document.getElementById('deal-status');
   const finish = () => { stage.classList.add('done'); status.textContent = 'Gewonnen'; };
-  if (reduce) { items.forEach(li => li.classList.add('in')); finish(); }
+  if (!stage) { /* Unterseite ohne Kundenakte */ }
+  else if (reduce) { items.forEach(li => li.classList.add('in')); finish(); }
   else {
     let started = false;
     const run = () => {
@@ -51,6 +52,7 @@ document.documentElement.classList.add('js');
 
   // Ganzer Film (1:54) im Dialog
   const dlg = document.getElementById('film');
+  if (!dlg) return;
   const film = dlg.querySelector('video');
   const openFilm = (ev) => {
     if (typeof dlg.showModal !== 'function') return; // Fallback: Link öffnet MP4
