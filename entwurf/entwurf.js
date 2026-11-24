@@ -67,3 +67,8 @@ document.documentElement.classList.add('js');
   dlg.addEventListener('click', (e) => { if (e.target === dlg) closeFilm(); });
   dlg.addEventListener('close', () => film.pause());
 })();
+
+// Black-Friday-Badge nach Ablauf automatisch ausblenden
+document.querySelectorAll('[data-bis]').forEach(el => {
+  if (Date.now() >= Date.parse(el.dataset.bis)) el.hidden = true;
+});
