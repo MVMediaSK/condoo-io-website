@@ -1,0 +1,60 @@
+/* Changelog-Seite */
+.cl-hero{padding-bottom:40px}
+.cl-hero .lead{max-width:62ch}
+.cl-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:8px;max-width:900px}
+.cl-stats>div{border:1px solid var(--line);border-radius:var(--r);background:#fff;padding:14px 16px}
+.cl-stats small{display:block;font-size:11px;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px}
+.cl-stats b{font:500 20px/1.2 var(--display);letter-spacing:-.02em;color:var(--ink)}
+
+.cl-toolbar{position:sticky;top:68px;z-index:20;background:#ffffffeb;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.cl-toolbar-in{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding-top:12px;padding-bottom:12px}
+.cl-search{flex:1 1 280px;min-width:0;position:relative}
+.cl-search svg{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--muted)}
+.cl-search input{width:100%;font:inherit;font-size:15px;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:11px 12px 11px 38px}
+.cl-search input:focus{outline:2px solid var(--blue);outline-offset:1px;background:#fff}
+.cl-months{display:flex;gap:6px;flex-wrap:wrap}
+.cl-months button{font:500 14px/1 var(--sans);color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:999px;padding:10px 14px;cursor:pointer}
+.cl-months button:hover{border-color:var(--blue)}
+.cl-months button[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.cl-months button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.cl-count{font:500 12px/1 var(--mono);color:var(--muted);margin-left:auto;font-variant-numeric:tabular-nums}
+
+.cl-grid{display:grid;grid-template-columns:180px minmax(0,1fr);gap:48px;padding-top:40px}
+.cl-index{position:sticky;top:150px;align-self:start;max-height:calc(100vh - 170px);overflow:auto;display:flex;flex-direction:column;gap:18px;font-size:14px;padding-right:4px}
+.cl-index-m{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.cl-index ul{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:1px}
+.cl-index a{display:block;padding:4px 10px;border-radius:7px;color:var(--ink);text-decoration:none;font-variant-numeric:tabular-nums}
+.cl-index a:hover{background:#EEF2FF;color:var(--blue)}
+
+.cl-month{font:500 30px/1.15 var(--display);letter-spacing:-.03em;margin:56px 0 12px}
+.cl-month:first-child{margin-top:0}
+.cl-day{display:grid;grid-template-columns:100px minmax(0,1fr);gap:24px;padding:28px 0;border-top:1px solid var(--line)}
+.cl-date{display:flex;flex-direction:column;gap:3px}
+.cl-date b{font:500 38px/1 var(--display);letter-spacing:-.03em;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;align-self:flex-start;padding-bottom:2px}
+.cl-date small{font-size:13px;color:var(--muted)}
+.cl-date small.mono{font-size:11px;letter-spacing:.04em;text-transform:uppercase}
+.cl-topics{display:flex;flex-direction:column;gap:22px;min-width:0}
+.cl-topic h3{display:flex;align-items:center;flex-wrap:wrap;gap:8px;font:500 19px/1.3 var(--display);letter-spacing:-.015em;margin-bottom:6px}
+.cl-topic h3::before{content:"";width:8px;height:8px;border-radius:2px;background:var(--grad);flex:none}
+.cl-new{font:600 10px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:#2F8F7E;background:#EAF7F4;padding:5px 8px;border-radius:999px}
+.cl-topic p{color:#3B4757;font-size:16px;line-height:1.65;max-width:72ch;margin-bottom:8px;overflow-wrap:break-word}
+.cl-topic p:last-child{margin-bottom:0}
+.cl-topic mark{background:#EEF2FF;color:var(--blue);border-radius:3px;padding:0 2px}
+.cl-empty{color:var(--muted);padding:48px 0;text-align:center}
+
+@media (max-width:860px){
+  .cl-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .cl-grid{grid-template-columns:minmax(0,1fr);gap:0;padding-top:24px}
+  .cl-index{display:none}
+  .cl-day{grid-template-columns:minmax(0,1fr);gap:10px}
+  .cl-date{flex-direction:row;align-items:baseline;gap:10px}
+  .cl-date b{font-size:28px}
+}
+@media (max-width:560px){
+
+  .cl-months{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;width:100%}
+  .cl-months::-webkit-scrollbar{display:none}
+  .cl-months button{flex:none}
+  .cl-count{margin-left:0}
+  .cl-stats b{font-size:17px}
+}
