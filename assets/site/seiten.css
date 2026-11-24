@@ -1,4 +1,4 @@
-/* condooOS Entwurf – Unterseiten (baut auf entwurf.css auf) */
+/* condooOS – Unterseiten (baut auf basis.css auf) */
 
 /* Seiten-Hero */
 .page-hero{background:linear-gradient(180deg,var(--paper) 0%,#fff 100%);padding:80px 0 72px}

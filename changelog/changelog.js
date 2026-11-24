@@ -1,4 +1,4 @@
-// Changelog: Daten stehen als JSON in #cl-data / #cl-meta (befüllt von entwurf/_changelog_sync.py)
+// Changelog: Daten stehen als JSON in #cl-data / #cl-meta (befüllt von werkzeuge/changelog_sync.py)
 (function () {
   const list = document.getElementById('cl-list');
   if (!list) return;

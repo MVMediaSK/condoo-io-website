@@ -2,16 +2,16 @@
 """Changelog-Daten aus dem Artifact ("condooOS Neuigkeiten") in die Website übernehmen.
 
 Aufruf (im Ordner condoo-io-website):
-    python3 entwurf/_changelog_sync.py <pfad/zur/artifact.html>
+    python3 werkzeuge/changelog_sync.py <pfad/zur/artifact.html>
 
 Liest aus der Artifact-HTML das JSON in <script id="cl-data"> sowie UPDATED / ORIG_TOTAL / ORIG_COVERED
-und schreibt sie in jede Changelog-Seite der Website (Entwurf und – nach dem Live-Gang – /changelog/).
+und schreibt sie in die Changelog-Seite der Website (/changelog/).
 Design und Skripte der Seite bleiben unverändert.
 """
 import json, os, re, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-ZIELE = ['entwurf/changelog/index.html', 'changelog/index.html']
+ZIELE = ['changelog/index.html']
 
 def main():
     if len(sys.argv) != 2:
@@ -30,7 +30,7 @@ def main():
         return v.group(1).strip('"') if kind == str else int(v.group(1))
     meta = {'updated': var('UPDATED', str), 'total': var('ORIG_TOTAL', int), 'covered': var('ORIG_COVERED', int)}
     dump = lambda o: json.dumps(o, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/')
-    block = ('<!--#cl-daten: wird von entwurf/_changelog_sync.py ersetzt -->\n'
+    block = ('<!--#cl-daten: wird von werkzeuge/changelog_sync.py ersetzt -->\n'
              '<script id="cl-meta" type="application/json">' + dump(meta) + '</script>\n'
              '<script id="cl-data" type="application/json">' + dump(data) + '</script>\n'
              '<!--/cl-daten-->')
