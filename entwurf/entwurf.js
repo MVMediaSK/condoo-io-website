@@ -68,7 +68,19 @@ document.documentElement.classList.add('js');
   dlg.addEventListener('close', () => film.pause());
 })();
 
-// Black-Friday-Badge nach Ablauf automatisch ausblenden
+// Black-Friday-Ticket: Countdown + nach Ablauf automatisch ausblenden
 document.querySelectorAll('[data-bis]').forEach(el => {
-  if (Date.now() >= Date.parse(el.dataset.bis)) el.hidden = true;
+  if (Date.now() >= Date.parse(el.dataset.bis)) { el.hidden = true; return; }
+  const cd = el.querySelector('[data-cd]');
+  if (!cd || !el.dataset.ende) return;
+  const ende = Date.parse(el.dataset.ende), z = n => String(n).padStart(2, '0');
+  const tick = () => {
+    const ms = ende - Date.now();
+    if (ms <= 0) { el.hidden = true; return; }
+    const s = Math.floor(ms / 1000), d = Math.floor(s / 86400), h = Math.floor(s % 86400 / 3600), m = Math.floor(s % 3600 / 60);
+    cd.textContent = (d ? d + (d === 1 ? ' Tag ' : ' Tagen ') : '') + z(h) + ':' + z(m) + ':' + z(s % 60);
+    cd.setAttribute('datetime', el.dataset.ende);
+  };
+  tick();
+  setInterval(tick, 1000);
 });
