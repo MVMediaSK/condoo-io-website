@@ -1,0 +1,32 @@
+# condoo.io – Server-Regeln (Apache auf Plesk)
+
+# Nur eine Adresse: www.condoo.io → condoo.io (wichtig für Google, kein doppelter Inhalt)
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTP_HOST} ^www\.condoo\.io$ [NC]
+  RewriteRule ^(.*)$ https://condoo.io/$1 [R=301,L]
+</IfModule>
+
+# Interne Werkzeuge nicht ausliefern
+<FilesMatch "\.(py|md)$">
+  Require all denied
+</FilesMatch>
+
+# Browser-Caching: Bilder, Videos, Schriften lange; CSS/JS lange (Versions-Kennung ?v= im Link); HTML immer frisch
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 1 hour"
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType text/javascript "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 month"
+  ExpiresByType image/png "access plus 1 month"
+  ExpiresByType image/jpeg "access plus 1 month"
+  ExpiresByType image/webp "access plus 1 month"
+  ExpiresByType image/x-icon "access plus 1 month"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType video/mp4 "access plus 1 month"
+  ExpiresByType application/manifest+json "access plus 1 week"
+  ExpiresByType application/xml "access plus 1 hour"
+</IfModule>
