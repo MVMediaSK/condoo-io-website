@@ -53,11 +53,11 @@
       if (vis) { f.classList.add('rv-persp'); mark(vis, ['rv-t'], .12); }
     });
     // Karten-Raster: nacheinander
-    q('.bento, .cards2, .cards3, .eu-facts, .extras, .extras3, .fee-tables, .groups, .help3, .pains, .partners, .people-grid, .personas, .photos, .roles, .seats, .steps3, .team-grid, .vids, .week, .ghost, .cl-stats, .formula, .who-rows, .pp-grid, .faq-list, .doi-steps').forEach(g => {
-      [...g.children].forEach((c, i) => { mark(c, ['rv-z'], Math.min(i, 8) * .08); if (c.matches('.tile, .extra, .partner, .fee-table, .step3, .persona, .role, .pp, .help3 > *')) c.classList.add('lift'); });
+    q('.hl-doi, .bento, .cards2, .cards3, .eu-facts, .extras, .extras3, .fee-tables, .groups, .help3, .pains, .partners, .people-grid, .personas, .photos, .roles, .seats, .steps3, .team-grid, .vids, .week, .ghost, .cl-stats, .formula, .who-rows, .pp-grid, .faq-list, .doi-steps').forEach(g => {
+      [...g.children].forEach((c, i) => { mark(c, ['rv-z'], Math.min(i, 8) * .08); if (c.matches('.tile, .extra, .partner, .fee-table, .step3, .persona, .role, .pp, .hl-card, .help3 > *')) c.classList.add('lift'); });
     });
     // Einzelne größere Elemente
-    q('main .win, .gc-fig, .contact-band, .doi, .fp, .meet, .note, .cl-day, .promo-frame, .merge-visual, .db-wrap ~ .logos').forEach(el => {
+    q('main .win, .gc-fig, .hl-tbl-wrap, .hl-route, .hl-legend-row, .hl-src, .contact-band, .doi, .fp, .meet, .note, .cl-day, .promo-frame, .merge-visual, .db-wrap ~ .logos').forEach(el => {
       if (el.matches('.win') && el.closest('.feat, .page-hero, .rv')) return;
       mark(el, el.matches('.cl-day') ? [] : ['rv-z']);
     });
