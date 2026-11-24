@@ -18,6 +18,7 @@
   const out = document.getElementById('projekte-out');
   const rows = document.getElementById('calc-rows');
   const sum = document.getElementById('calc-sum');
+  const reg_ = document.getElementById('calc-reg');
   const eur = n => n.toLocaleString('de-DE') + ' €';
   const names = ['Dein erstes Business', 'Deine zweite Marke', 'Dein nächstes Projekt'];
   const calc = () => {
@@ -29,7 +30,11 @@
     }
     if (n > 3) html += `<li><span>${n - 3} weitere${n - 3 === 1 ? 's' : ''} Projekt${n - 3 === 1 ? '' : 'e'}</span><span class="mono">${n - 3} × 33 €</span></li>`;
     rows.innerHTML = html;
-    sum.textContent = eur(97 + 33 * (n - 1));
+    const pay = 97 + 33 * (n - 1), reg = 97 * n;
+    sum.textContent = eur(pay);
+    reg_.textContent = eur(reg);
+    reg_.hidden = n < 2;
+    sum.setAttribute('aria-label', n < 2 ? eur(pay) : eur(pay) + ' statt regulär ' + eur(reg));
   };
   range.addEventListener('input', calc);
   calc();
