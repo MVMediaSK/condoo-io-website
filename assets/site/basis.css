@@ -283,6 +283,8 @@ svg{width:18px;height:18px;fill:currentColor}
 
 /* Footer */
 .foot{border-top:1px solid var(--line);padding:64px 0 32px;font-size:14px}
+.foot{font-family:'Space Grotesk',ui-sans-serif,system-ui,sans-serif;letter-spacing:-.005em}
+.foot nav b{font-weight:600;letter-spacing:-.01em}
 .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px}
 .foot-brand img{width:132px;margin-bottom:14px}
 .foot-brand p{color:var(--muted)}
