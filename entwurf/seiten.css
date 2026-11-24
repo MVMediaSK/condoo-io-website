@@ -241,3 +241,81 @@ html:has(.f-jump){scroll-padding-top:140px}
 }
 .ph-grid h1{font-size:clamp(38px,4.6vw,62px)}
 .meet .pill-s{white-space:nowrap}
+
+/* ===== Flow-Player (animierte Abläufe auf „Für wen“) ===== */
+.fp{border:1px solid var(--line);border-radius:18px;background:#fff;box-shadow:0 30px 60px -36px #0E1A2B55;overflow:hidden}
+.fp-steps{display:grid;grid-template-columns:repeat(5,1fr);border-bottom:1px solid var(--line);background:var(--paper)}
+.fp-step{position:relative;padding:12px 8px 14px;font-size:12px;font-weight:600;color:#98A2B3;text-align:left;display:flex;flex-direction:column;gap:3px;border-right:1px solid var(--line);transition:color .3s,background .3s}
+.fp-step:last-child{border-right:0}
+.fp-step small{font:600 10px/1 var(--mono);letter-spacing:.04em}
+.fp-step::after{content:"";position:absolute;left:0;bottom:0;height:3px;width:0;background:var(--blue)}
+.fp-step.done{color:#475467}
+.fp-step.done::after{width:100%;background:#C7D2F5}
+.fp-step.on{color:var(--ink);background:#fff}
+.fp-step.on::after{animation:fpProg var(--dur,3.6s) linear forwards}
+.fp.paused .fp-step.on::after,.fp.static .fp-step.on::after{animation:none;width:100%}
+.fp.paused .fp-step.on::after{animation-play-state:paused}
+@keyframes fpProg{from{width:0}to{width:100%}}
+.fp-stage{position:relative;height:330px;overflow:hidden;background:linear-gradient(180deg,#fff,var(--paper))}
+.fp-scene{position:absolute;inset:0;padding:22px;opacity:0;transform:translateY(12px) scale(.985);transition:opacity .45s ease,transform .45s ease;pointer-events:none;display:flex;flex-direction:column;gap:10px;color:#475467;font-size:13px}
+.fp-scene.on{opacity:1;transform:none;pointer-events:auto}
+.fp-label{font:600 10px/1 var(--mono);letter-spacing:.06em;color:var(--muted);text-transform:uppercase}
+.fp-title{font:500 20px/1.2 var(--display);color:var(--ink);letter-spacing:-.015em}
+.fp-card{border:1px solid var(--line);border-radius:12px;background:#fff;padding:14px}
+.fp-dark{background:var(--ink);border-color:var(--ink);color:#C9D3E1}
+.fp-dark b{color:#fff}
+.fp-row{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.fp-input{border:1px solid var(--line);border-radius:8px;padding:9px 11px;background:#fff;color:var(--ink);font-size:13px;min-height:36px}
+.fp-btn{align-self:flex-start;padding:9px 13px;border-radius:8px;background:var(--blue);color:#fff;font-weight:600;font-size:13px;position:relative}
+.fp-toast{display:flex;align-items:center;gap:10px;padding:11px 13px;border-radius:12px;background:var(--ink);color:#fff;font-size:13px;box-shadow:0 14px 30px -12px #0E1A2B88;align-self:flex-start}
+.fp-toast i{width:22px;height:22px;border-radius:50%;background:var(--mint);color:var(--ink);display:grid;place-items:center;font-style:normal;font-weight:700;font-size:12px;flex-shrink:0}
+.fp-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;flex:1}
+.fp-col{border-radius:10px;background:#EEF1F6;padding:8px;display:flex;flex-direction:column;gap:6px}
+.fp-col > span{font-weight:600;color:var(--ink);font-size:12px}
+.fp-big{font:500 34px/1 var(--display);color:var(--ink);letter-spacing:-.03em}
+.fp-av{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;color:#fff;font-weight:600;font-size:12px;flex-shrink:0}
+.fp-bar{height:8px;border-radius:4px;background:#E8EDF3;overflow:hidden}
+.fp-bar i{display:block;height:100%;width:var(--w,60%);background:var(--grad);border-radius:4px}
+.fp-split{display:grid;grid-template-columns:1fr 1fr;gap:12px;flex:1}
+.fp-ad{border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#fff}
+.fp-ad-img{height:96px;background:linear-gradient(135deg,#2A4DD1,#55B5A6);display:grid;place-items:center;color:#fff;font:500 17px/1.2 var(--display);text-align:center;padding:10px}
+
+/* Bewegungs-Bausteine: starten, sobald die Szene aktiv ist */
+.fp-scene .a{opacity:0}
+.fp-scene.on .a{animation:fpIn .55s cubic-bezier(.2,.7,.2,1) var(--d,0s) both}
+.fp-scene.on .pop{animation:fpPop .5s cubic-bezier(.3,1.6,.5,1) var(--d,0s) both}
+.fp-scene.on .type{animation:fpType 1.1s steps(28,end) var(--d,0s) both}
+.fp-scene.on .fill i{animation:fpFill 1.4s cubic-bezier(.3,.7,.2,1) var(--d,0s) both}
+.fp-scene.on .slide-in{animation:fpSlide .7s cubic-bezier(.2,.8,.2,1) var(--d,0s) both}
+.fp-scene.on .press{animation:fpPress .45s ease var(--d,0s) both}
+.fp-scene.on .press::after{content:"";position:absolute;inset:-4px;border-radius:11px;border:2px solid var(--blue);opacity:0;animation:fpRing .7s ease var(--d,0s) both}
+.fp-scene.on .hl{animation:fpHl 1s ease var(--d,0s) both}
+@keyframes fpIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes fpPop{0%{opacity:0;transform:scale(.6)}100%{opacity:1;transform:none}}
+@keyframes fpType{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+@keyframes fpFill{from{width:0}}
+@keyframes fpSlide{from{opacity:0;transform:translateX(-120%)}to{opacity:1;transform:none}}
+@keyframes fpPress{0%,100%{transform:none}50%{transform:scale(.94)}}
+@keyframes fpRing{0%{opacity:.9;transform:scale(.9)}100%{opacity:0;transform:scale(1.15)}}
+@keyframes fpHl{0%{background:#fff}40%{background:#E6ECFF;border-color:var(--blue)}100%{background:#EEF2FF;border-color:var(--blue)}}
+.fp-scene.on .hl{border-color:var(--blue)}
+.fp-caption{display:flex;justify-content:space-between;gap:12px;padding:10px 16px;border-top:1px solid var(--line);font-size:12px;color:var(--muted);background:#fff}
+.fp-toggle{font:600 12px/1 var(--sans);color:var(--blue)}
+.fp.static .fp-scene .a,.fp.static .fp-scene .pop,.fp.static .fp-scene .type,.fp.static .fp-scene .fill i,.fp.static .fp-scene .slide-in{animation:none;opacity:1;clip-path:none}
+
+@media (max-width:560px){
+  .fp-steps{grid-template-columns:repeat(5,minmax(0,1fr))}
+  .fp-step{padding:10px 6px 12px;font-size:0}
+  .fp-step small{font-size:10px}
+  .fp-step.on{font-size:11px}
+  .fp-stage{height:390px}
+  .fp-scene{padding:16px}
+  .fp-split{grid-template-columns:1fr}
+  .fp-cols{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
+}
+.fp-scene.on .slot.hl{animation:fpSel .45s ease var(--d,0s) both}
+@keyframes fpSel{from{background:#fff;color:var(--ink)}to{background:var(--blue);border-color:var(--blue);color:#fff;transform:scale(1.04)}}
+.fp.static .fp-scene .slot.hl{background:var(--blue);border-color:var(--blue);color:#fff}
+/* Knopf: erst einblenden, dann „drücken“ */
+.fp-scene.on .a.press{animation:fpIn .5s cubic-bezier(.2,.7,.2,1) var(--d,0s) both,fpPress .45s ease calc(var(--d,0s) + .55s) both}
+.fp-scene.on .a.press::after{animation-delay:calc(var(--d,0s) + .55s)}
