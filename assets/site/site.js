@@ -16,23 +16,52 @@ document.documentElement.classList.add('js');
     links.classList.toggle('open', open);
   });
 
-  // Kundenakte: Ereignisse laufen nacheinander ein
-  const stage = document.getElementById('stage');
-  const items = [...document.querySelectorAll('#timeline li')];
-  const status = document.getElementById('deal-status');
-  const finish = () => { stage.classList.add('done'); status.textContent = 'Gewonnen'; };
-  if (!stage) { /* Unterseite ohne Kundenakte */ }
-  else if (reduce) { items.forEach(li => li.classList.add('in')); finish(); }
-  else {
-    let started = false;
-    const run = () => {
-      if (started) return; started = true;
-      items.forEach((li, i) => setTimeout(() => {
-        li.classList.add('in');
-        if (i === items.length - 1) setTimeout(finish, 350);
-      }, 350 + i * 520));
+  // Hero-Dashboard: ein Morgen in condooOS (Zahlen zählen hoch, Hinweise erscheinen, Deal wandert zu „Gewonnen“)
+  const dash = document.getElementById('dash');
+  if (dash) {
+    const $ = id => document.getElementById(id);
+    const fmt = (n, eur) => n.toLocaleString('de-DE');
+    const setNum = (el, n) => { el.textContent = fmt(n); el.dataset.to = n; };
+    const count = (el, to, ms = 900) => {
+      const from = Math.round(to * .72), t0 = performance.now();
+      const step = t => { const k = Math.min(1, (t - t0) / ms), e = 1 - Math.pow(1 - k, 3); el.textContent = fmt(Math.round(from + (to - from) * e)); if (k < 1) requestAnimationFrame(step); };
+      requestAnimationFrame(step);
     };
-    new IntersectionObserver((e, o) => { if (e[0].isIntersecting) { run(); o.disconnect(); } }, { threshold: .3 }).observe(stage);
+    const toast = (c, on = true) => dash.querySelector('.db-toast.' + c).classList.toggle('in', on);
+    const anna = $('card-anna'), won = $('col-won');
+    // Datum und Gruß passen sich dem Besucher an
+    const now = new Date(), h = now.getHours();
+    dash.querySelector('.db-date').textContent = now.toLocaleDateString('de-DE', { weekday: 'long', day: 'numeric', month: 'long' });
+    dash.querySelector('.db-hello').firstChild.textContent = (h < 11 ? 'Guten Morgen' : h < 18 ? 'Guten Tag' : 'Guten Abend') + ', Marco';
+    const winDeal = animate => {
+      const first = anna.getBoundingClientRect();
+      won.insertBefore(anna, won.querySelector('.db-card'));
+      const tag = anna.querySelector('.db-tag');
+      tag.className = 'db-tag t-won'; tag.textContent = '✓ Gewonnen';
+      anna.classList.add('won');
+      $('n-ges').textContent = '1'; $('n-won').textContent = '2';
+      if (animate) {
+        const last = anna.getBoundingClientRect();
+        anna.animate([{ transform: `translate(${first.left - last.left}px,${first.top - last.top}px)` }, { transform: 'none' }], { duration: 700, easing: 'cubic-bezier(.2,.7,.2,1)' });
+        anna.classList.add('flash');
+        count($('k-rev'), 13680, 700);
+      } else setNum($('k-rev'), 13680);
+    };
+    const newLead = () => { $('card-new').classList.add('in'); $('n-neu').textContent = '3'; setNum($('k-contacts'), 249); };
+    if (reduce) { dash.classList.add('go'); newLead(); winDeal(false); toast('t3'); }
+    else {
+      let started = false;
+      const run = () => {
+        if (started) return; started = true;
+        dash.classList.add('go');
+        dash.querySelectorAll('[data-to]').forEach(el => count(el, +el.dataset.to));
+        setTimeout(() => { toast('t1'); newLead(); }, 1300);
+        setTimeout(() => { toast('t2'); anna.classList.add('flash'); }, 2900);
+        setTimeout(() => { toast('t1', false); anna.classList.remove('flash'); winDeal(true); toast('t3'); }, 4600);
+        setTimeout(() => toast('t2', false), 7200);
+      };
+      new IntersectionObserver((e, o) => { if (e[0].isIntersecting) { run(); o.disconnect(); } }, { threshold: .35 }).observe(dash);
+    }
   }
 
   // 8 Tools → 1 System

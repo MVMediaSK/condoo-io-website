@@ -66,67 +66,86 @@
     </div>
   </div>
 
-  <!-- SIGNATUR: eine Kundenakte -->
-  <div class="wrap">
-    <div class="stage" id="stage" aria-label="Beispielansicht: Kundenakte in condooOS">
-      <div class="stage-bar">
+  <!-- SIGNATUR: helles Dashboard – ein Morgen in condooOS -->
+  <div class="wrap db-wrap">
+    <div class="db" id="dash" aria-label="Beispielansicht: Dein Dashboard in condooOS">
+      <div class="db-bar">
         <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
-        <span class="stage-url mono">app.condoo.io / kontakte / anna-weber</span>
-        <span class="live mono"><i aria-hidden="true"></i>live</span>
+        <span class="db-url mono">app.condoo.io / übersicht</span>
+        <span class="db-live mono"><i aria-hidden="true"></i>Alles läuft</span>
       </div>
-      <div class="stage-body">
-        <aside class="stage-nav" aria-hidden="true">
-          <div class="sn-ws"><span class="av av-blue">M</span><span>Mein Unternehmen</span></div>
-          <span class="sn-item">Übersicht</span>
-          <span class="sn-item on">Kontakte</span>
-          <span class="sn-item">Pipelines</span>
-          <span class="sn-item">Kommunikation</span>
-          <span class="sn-item">Websites &amp; Funnels</span>
-          <span class="sn-item">Automationen</span>
-          <span class="sn-item">Kalender</span>
-          <span class="sn-item">Rechnungen</span>
-          <span class="sn-item">Kurse</span>
-          <span class="sn-item">KI-Assistent</span>
+      <div class="db-body">
+        <aside class="db-nav" aria-hidden="true">
+          <div class="db-ws"><span class="av av-blue">M</span><span><b>Mein Unternehmen</b><small>Workspace</small></span></div>
+          <span class="db-ni on"><i>▦</i>Übersicht</span>
+          <span class="db-ni"><i>◎</i>Kontakte</span>
+          <span class="db-ni"><i>▥</i>Pipelines<em>8</em></span>
+          <span class="db-ni"><i>✉</i>Posteingang<em class="b">3</em></span>
+          <span class="db-ni"><i>◱</i>Websites &amp; Funnels</span>
+          <span class="db-ni"><i>⟲</i>Automationen</span>
+          <span class="db-ni"><i>▤</i>Kalender</span>
+          <span class="db-ni"><i>✦</i>KI-Assistent</span>
+          <span class="db-eu mono">✦ Daten in Frankfurt</span>
         </aside>
 
-        <div class="record">
-          <div class="rec-head">
-            <span class="av av-lg av-teal">AW</span>
-            <div>
-              <h2 class="rec-name">Anna Weber</h2>
-              <p class="rec-meta">Weber Interior GmbH · Wien · <span class="mono">USt-IdNr. ATU…</span></p>
-            </div>
-            <span class="rec-tag">Kundin seit heute</span>
+        <div class="db-main">
+          <div class="db-head">
+            <div><p class="db-date mono">Dienstag, 24. November</p><h2 class="db-hello">Guten Morgen, Marco<span aria-hidden="true">✦</span></h2><p class="db-sub">Hier ist, was heute für Dich läuft.</p></div>
+            <span class="db-range">Dieser Monat ▾</span>
           </div>
-          <ol class="timeline" id="timeline">
-            <li data-m="funnel"><span class="t mono">Mo 09:12</span><span class="chip mono">Funnel</span><p>Formular <b>„Kostenloses Erstgespräch“</b> auf Deiner Website ausgefüllt</p></li>
-            <li data-m="crm"><span class="t mono">Mo 09:12</span><span class="chip mono">CRM</span><p>Kontakt angelegt · Pipeline <b>Neue Leads</b></p></li>
-            <li data-m="mail"><span class="t mono">Mo 09:13</span><span class="chip mono">E-Mail</span><p>Double-Opt-in bestätigt · Willkommensmail versendet</p></li>
-            <li data-m="cal"><span class="t mono">Mo 09:40</span><span class="chip mono">Kalender</span><p>Termin selbst gebucht: <b>Do, 10:00 Uhr</b> · Erinnerung per WhatsApp</p></li>
-            <li data-m="deal"><span class="t mono">Do 10:45</span><span class="chip mono">Angebot</span><p>Angebot <b>Marketing-Betreuung</b> angenommen</p></li>
-            <li data-m="inv"><span class="t mono">Do 10:46</span><span class="chip mono">Rechnung</span><p>Rechnung erstellt · <b>Reverse Charge</b> automatisch gesetzt</p></li>
-            <li data-m="kurs"><span class="t mono">Do 10:46</span><span class="chip mono">Kurs</span><p>Zugang zum Onboarding-Kurs freigeschaltet</p></li>
-          </ol>
+
+          <div class="db-kpis">
+            <div class="db-kpi"><small>Neue Kontakte</small><b><span data-to="248" id="k-contacts">248</span></b><span class="db-up">↗ 18 %</span>
+              <span class="db-bars" aria-hidden="true"><i style="--h:30%"></i><i style="--h:42%"></i><i style="--h:36%"></i><i style="--h:55%"></i><i style="--h:48%"></i><i style="--h:66%"></i><i style="--h:78%"></i><i style="--h:92%" class="hi"></i></span></div>
+            <div class="db-kpi"><small>Umsatz diesen Monat</small><b><span data-to="12480" data-eur id="k-rev">12.480</span> €</b><span class="db-up">↗ 12 %</span>
+              <svg class="db-spark" viewBox="0 0 120 32" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="sp-g" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#4BA2E3" stop-opacity=".35"/><stop offset="1" stop-color="#4BA2E3" stop-opacity="0"/></linearGradient></defs><path d="M0 26 L15 22 L30 24 L45 17 L60 19 L75 12 L90 14 L105 7 L120 4 L120 32 L0 32Z" fill="url(#sp-g)"/><path class="db-line" d="M0 26 L15 22 L30 24 L45 17 L60 19 L75 12 L90 14 L105 7 L120 4" fill="none" stroke="#2A4DD1" stroke-width="2" vector-effect="non-scaling-stroke"/></svg></div>
+            <div class="db-kpi"><small>Termine diese Woche</small><b><span data-to="14" id="k-appts">14</span></b><span class="db-up">3 heute</span>
+              <span class="db-week" aria-hidden="true"><i>M</i><i class="on">D</i><i>M</i><i class="on">D</i><i>F</i></span></div>
+          </div>
+
+          <div class="db-pipe">
+            <div class="db-pipe-h"><b>Deine Pipeline</b><span class="mono">32.850 € offen</span></div>
+            <div class="db-cols">
+              <div class="db-col" data-col="neu"><span class="db-col-h"><i class="c1"></i>Neue Leads <em id="n-neu">2</em></span>
+                <div class="db-card"><span class="db-tag t-web">Website</span><b>Website-Relaunch</b><small>Studio Nord</small><span class="db-row"><b>2.400 €</b><span class="av av-blue">SN</span></span></div>
+                <div class="db-card db-new" id="card-new"><span class="db-tag t-form">Formular</span><b>Erstgespräch</b><small>Lena Hofmann</small><span class="db-row"><b>890 €</b><span class="av" style="background:#7C9BFF">LH</span></span></div>
+              </div>
+              <div class="db-col" data-col="gespraech"><span class="db-col-h"><i class="c2"></i>Im Gespräch <em id="n-ges">2</em></span>
+                <div class="db-card" id="card-anna"><span class="db-tag t-cal">Termin Do 10:00</span><b>Marketing-Betreuung</b><small>Anna Weber</small><span class="db-row"><b>1.200 €</b><span class="av av-teal">AW</span></span></div>
+                <div class="db-card"><span class="db-tag t-mail">Angebot offen</span><b>Business-Coaching</b><small>Michael Berger</small><span class="db-row"><b>3.500 €</b><span class="av" style="background:#4BA2E3">MB</span></span></div>
+              </div>
+              <div class="db-col" data-col="gewonnen" id="col-won"><span class="db-col-h"><i class="c3"></i>Gewonnen <em id="n-won">1</em></span>
+                <div class="db-card won"><span class="db-tag t-won">✓ Gewonnen</span><b>Mitgliedschaft</b><small>Sarah Klein</small><span class="db-row"><b>990 €</b><span class="av" style="background:#55B5A6">SK</span></span></div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <aside class="rec-side">
-          <div class="side-card">
-            <span class="side-label mono">Deal</span>
-            <strong class="side-big">1.200 €<small> / Monat</small></strong>
-            <div class="stages" aria-label="Phase: Gewonnen"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on" id="stage-won"></i></div>
-            <span class="side-status" id="deal-status">Im Gespräch</span>
+        <aside class="db-side">
+          <div class="db-box">
+            <span class="db-box-h mono">Heute</span>
+            <ul class="db-agenda">
+              <li><time class="mono">09:30</time><span><b>Kennenlernen</b>Lena Hofmann · Google Meet</span></li>
+              <li class="now"><time class="mono">11:00</time><span><b>Strategie-Call</b>Michael Berger</span></li>
+              <li><time class="mono">16:00</time><span><b>Live-Workshop</b>12 Anmeldungen</span></li>
+            </ul>
           </div>
-          <div class="side-card">
-            <span class="side-label mono">Automation</span>
-            <p class="side-flow"><b>Neuer Lead → Willkommen</b><span>7 Schritte · läuft von allein</span></p>
+          <div class="db-box db-ai">
+            <span class="db-box-h mono">✦ KI-Assistent</span>
+            <p>„Anna hat das Angebot geöffnet. Soll ich ihr den Vertrag schicken?“</p>
+            <span class="db-ai-btns"><i>Ja, senden</i><i>Später</i></span>
           </div>
-          <div class="side-card ai">
-            <span class="side-label mono">KI-Assistent</span>
-            <p>„Anna hat nach Kursinhalten gefragt. Soll ich eine Antwort vorbereiten?“</p>
+          <div class="db-box db-auto">
+            <span class="db-box-h mono">Automation</span>
+            <p><b>Neuer Lead → Willkommen</b><span>läuft · 7 Schritte</span></p>
           </div>
         </aside>
       </div>
-      <p class="stage-note mono">Beispielansicht mit Demodaten</p>
+      <p class="db-note mono">Beispielansicht mit Demodaten</p>
+
+      <div class="db-toast t1" aria-hidden="true"><span class="db-ti ok">✓</span><span><b>Neuer Lead. Nächster Schritt erledigt.</b><small>Kontakt angelegt → Willkommensmail raus</small></span><em class="mono">jetzt</em></div>
+      <div class="db-toast t2" aria-hidden="true"><span class="db-ti cal">▤</span><span><b>Termin gebucht – ganz von allein.</b><small>Anna Weber · Do, 10:00 Uhr</small></span></div>
+      <div class="db-toast t3" aria-hidden="true"><span class="db-ti won">€</span><span><b>Deal gewonnen: 1.200 € / Monat</b><small>Rechnung mit Reverse Charge erstellt</small></span></div>
     </div>
   </div>
 
