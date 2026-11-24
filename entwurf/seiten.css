@@ -160,3 +160,7 @@
 .cd.h{color:var(--muted);font:600 10px/1.6 var(--mono)}
 .cd.off{color:#C0C7D2}
 .cd.sel{background:var(--blue);color:#fff}
+
+/* Anker auf der Funktionen-Seite: Menü + Sprungleiste einrechnen */
+html:has(.f-jump){scroll-padding-top:140px}
+.f-jump ul{scroll-behavior:smooth}
