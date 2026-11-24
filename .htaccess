@@ -5,6 +5,9 @@
   RewriteEngine On
   RewriteCond %{HTTP_HOST} ^www\.condoo\.io$ [NC]
   RewriteRule ^(.*)$ https://condoo.io/$1 [R=301,L]
+
+  # Alte Launch-Angebote: endgültig entfernt (410 = „für immer weg“, Google löscht sie aus dem Index)
+  RewriteRule ^launch-angebot(/.*)?$ - [G,L]
 </IfModule>
 
 # Interne Werkzeuge nicht ausliefern
