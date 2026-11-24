@@ -121,3 +121,8 @@
   .hl-route{padding:16px}
 }
 @media (prefers-reduced-motion:reduce){.hl-line i{animation:none;display:none}}
+
+.hl-wide{grid-column:1/-1;display:flex;gap:18px;align-items:flex-start;background:linear-gradient(135deg,#EEF2FF,#EAF7F4);border-color:#DCE6FF}
+.hl-wide h3{margin-top:4px}
+.hl-wide .hl-ic{flex:none;font-size:15px}
+@media (max-width:560px){.hl-wide{flex-direction:column}}
