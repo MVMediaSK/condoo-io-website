@@ -1,0 +1,43 @@
+/* condooOS – Footer (dunkel), eigenständig für alle Seiten inkl. Rechtstexte */
+footer.ft{--ft-bg:#0E1A2B;--ft-line:#22324C;--ft-text:#AEBBCD;--ft-dim:#7F8EA4;--ft-white:#fff;--ft-mint:#68D2BF;--ft-grad:linear-gradient(100deg,#2A4DD1 0%,#4BA2E3 55%,#55B5A6 100%);
+  position:relative;overflow:hidden;margin-top:0;padding:0;border-top:0;background:var(--ft-bg);color:var(--ft-text);
+  font:400 14.5px/1.6 'Space Grotesk',ui-sans-serif,system-ui,sans-serif;letter-spacing:-.005em}
+footer.ft::before{content:"";position:absolute;inset:-30% -10% auto auto;width:60%;height:120%;background:radial-gradient(closest-side,#2A4DD12e,transparent 70%);pointer-events:none}
+footer.ft::after{content:"";position:absolute;inset:auto auto -40% -10%;width:55%;height:90%;background:radial-gradient(closest-side,#55B5A61f,transparent 70%);pointer-events:none}
+footer.ft *{box-sizing:border-box}
+footer.ft a{color:inherit;text-decoration:none}
+.ft-in{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:0 32px}
+.ft-top{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;padding:64px 0 44px;border-bottom:1px solid var(--ft-line)}
+.ft-claim{margin:0;font:500 clamp(26px,3.2vw,40px)/1.1 'Space Grotesk',sans-serif;letter-spacing:-.035em;color:var(--ft-white)}
+.ft-claim span{background:var(--ft-grad);-webkit-background-clip:text;background-clip:text;color:transparent;filter:brightness(1.25)}
+.ft-cta{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.ft-btn{display:inline-flex;align-items:center;gap:10px;padding:14px 20px;border-radius:10px;background:#fff;color:#0E1A2B !important;font-weight:600;font-size:15px;transition:transform .2s ease,box-shadow .2s ease}
+.ft-btn:hover{transform:translateY(-2px);box-shadow:0 14px 30px -14px #4BA2E3aa}
+.ft-ghost{font-weight:600;color:var(--ft-white) !important;border-bottom:1px solid #ffffff40;padding-bottom:2px}
+.ft-ghost:hover{border-color:var(--ft-mint)}
+.ft-grid{display:grid;grid-template-columns:1.5fr repeat(5,max-content);justify-content:space-between;gap:36px 32px;padding:48px 0 44px}
+.ft-brand img{display:block;width:168px;height:auto;margin-bottom:16px}
+.ft-brand p{margin:0 0 18px;max-width:30ch;color:var(--ft-text)}
+.ft-status{justify-self:start;align-self:start;display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border:1px solid var(--ft-line);border-radius:999px;font-size:13px;font-weight:500;color:var(--ft-white) !important;transition:border-color .2s}
+.ft-status:hover{border-color:var(--ft-mint)}
+.ft-status i{width:8px;height:8px;border-radius:50%;background:var(--ft-mint);box-shadow:0 0 0 0 #68D2BF88;animation:ftPulse 2s ease-out infinite}
+@keyframes ftPulse{to{box-shadow:0 0 0 7px #68D2BF00}}
+.ft-grid nav{display:flex;flex-direction:column;gap:9px;min-width:0}
+.ft-grid nav b{margin-bottom:6px;font:600 11.5px/1.3 ui-monospace,'SF Mono',Menlo,monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--ft-dim)}
+.ft-grid nav a{color:var(--ft-text);transition:color .2s;hyphens:manual;-webkit-hyphens:manual}
+.ft-grid nav a:hover{color:var(--ft-white)}
+.ft-grid nav a span{color:var(--ft-dim)}
+.ft-bottom{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:22px 0 30px;border-top:1px solid var(--ft-line);font-size:13px;color:var(--ft-dim)}
+.ft-badges{display:flex;gap:8px;flex-wrap:wrap}
+.ft-badges>span{padding:5px 10px;border:1px solid var(--ft-line);border-radius:999px;font-size:12px;color:var(--ft-text)}
+.ft-badges .mono{font:600 11px/1.4 ui-monospace,'SF Mono',Menlo,monospace;color:var(--ft-mint);border-color:#2A4A5E}
+footer.ft a:focus-visible{outline:2px solid var(--ft-mint);outline-offset:3px;border-radius:4px}
+@media (max-width:1240px){.ft-grid{grid-template-columns:repeat(5,max-content)}.ft-brand{grid-column:1/-1;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px 28px}.ft-brand img{margin:0}.ft-brand p{margin:0;max-width:52ch}}
+@media (max-width:900px){.ft-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.ft-brand{grid-template-columns:1fr}.ft-brand p{max-width:none}}
+@media (max-width:640px){
+  .ft-in{padding:0 20px}
+  .ft-top{padding:48px 0 32px}
+  .ft-grid{grid-template-columns:1fr 1fr;gap:30px 20px}
+  .ft-bottom{flex-direction:column;align-items:flex-start}
+}
+@media (prefers-reduced-motion:reduce){.ft-status i{animation:none}.ft-btn{transition:none}}
