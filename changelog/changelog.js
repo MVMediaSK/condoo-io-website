@@ -86,6 +86,7 @@
         }).join('') + '</div></article>');
     });
     list.innerHTML = out.length ? out.join('') : '<p class="cl-empty">Keine Änderungen gefunden. Versuch es mit einem anderen Suchbegriff.</p>';
+    if (window.condooReveal) window.condooReveal(list);
     document.getElementById('cl-count').textContent = n + ' von ' + total + ' Themen';
     document.getElementById('cl-index').innerHTML = Object.keys(idx).map(mk =>
       '<div><div class="cl-index-m mono">' + mLabel(mk) + '</div><ul>' + idx[mk].map(d => {
