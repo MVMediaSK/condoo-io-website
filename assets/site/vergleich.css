@@ -36,7 +36,7 @@
 .hl-tbl thead th{position:sticky;top:0;z-index:2;background:#fff;text-align:left;padding:18px 20px;border-bottom:1px solid var(--line);font:500 18px/1.2 var(--display);letter-spacing:-.02em;color:var(--ink)}
 .hl-tbl thead th.c-con{color:var(--blue)}
 .hl-tbl thead th.c-con::after{content:"Built for Europe";display:block;font:600 10px/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:#2F8F7E;margin-top:4px}
-.hl-tbl thead th.c-hl::after{content:"HighLevel LLC · USA";display:block;font:600 10px/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:#98A2B3;margin-top:4px}
+.hl-tbl thead th.c-hl::after{content:attr(data-sub);display:block;font:600 10px/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:#98A2B3;margin-top:4px}
 .hl-tbl tbody th,.hl-tbl td{padding:15px 20px;border-top:1px solid #EEF1F5;vertical-align:top;text-align:left}
 .hl-tbl tbody th{font-weight:600;color:var(--ink);width:28%}
 .hl-tbl td{color:#475467;line-height:1.5;width:36%}
@@ -126,3 +126,7 @@
 .hl-wide h3{margin-top:4px}
 .hl-wide .hl-ic{flex:none;font-size:15px}
 @media (max-width:560px){.hl-wide{flex-direction:column}}
+
+/* neutral-positiv beim Wettbewerber (fair) */
+.hl-check .eq{background:#EEF6F4;color:#3F7F74}
+.st.eq{background:#EEF6F4;color:#3F7F74}
