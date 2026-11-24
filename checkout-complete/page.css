@@ -1,0 +1,23 @@
+/* Regular Complete checkout: local refinements of the existing checkout layout. */
+.regular-checkout .checkout-details,
+.regular-checkout .checkout-column{min-width:0}
+.regular-checkout .trial-label{display:inline-flex;align-items:center;gap:9px;margin-top:25px;padding:9px 13px;border:1px solid #cde4df;border-radius:30px;background:#edf7f3;color:#34796d;font-size:13px;font-weight:500}
+.regular-checkout .trial-label>span{display:grid;place-items:center;width:19px;height:19px;border-radius:50%;background:#d6ede5;font-size:12px}
+.regular-checkout .checkout-price{margin-top:24px}
+.regular-checkout .price-caption{font-size:12px;color:#6b7e93}
+.regular-checkout .complete-flexibility{font-size:13px;line-height:1.8;margin-top:14px;color:#687f95}
+.regular-checkout .checks strong{color:#35556d}
+.regular-checkout .feature-detail a,
+.regular-checkout .checkout-cost-note a{text-decoration:underline;text-underline-offset:3px;color:#416e96}
+.regular-checkout .complete-paws{display:flex;align-items:center;gap:14px;margin-top:26px;padding:17px 18px;border:1px solid #d3e7e1;border-radius:10px;background:linear-gradient(110deg,#eaf4ef,#eff7f7);color:#416f66;font-size:14px;line-height:1.6;transition:border-color .2s,box-shadow .2s}
+.regular-checkout .complete-paws:hover{border-color:#9bcabd;box-shadow:0 5px 16px #224f3d0a}
+.regular-checkout .paws-heart{display:grid;place-items:center;flex:0 0 33px;height:33px;background:#fff9;border-radius:10px;color:#579789;font-size:21px}
+.regular-checkout .complete-paws small{display:block;font-size:12px;color:#66877f;margin-top:2px}
+.regular-checkout .paws-arrow{margin-left:auto;font-size:20px}
+.regular-checkout .checkout-panel{scroll-margin-top:24px}
+.regular-checkout .checkout-mount:has(>iframe){padding-top:20px}
+.regular-checkout .order-line{flex-wrap:wrap}
+.regular-checkout .panel-heading h2{font-size:clamp(26px,2.4vw,32px)}
+.regular-checkout .checkout-column{animation:arrive .5s both}
+@media(max-width:540px){.regular-checkout .complete-paws{padding:15px 13px;gap:10px}.regular-checkout .complete-paws small{font-size:12px}.regular-checkout .checkout-details h1>span{font-size:clamp(25px,7vw,29px)}}
+@media(prefers-reduced-motion:reduce){.regular-checkout .checkout-column{animation:none}}
