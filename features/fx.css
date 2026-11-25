@@ -1,0 +1,86 @@
+/* Funktionen – jedes Mockup spielt sich ab, sobald es ins Bild kommt (gesteuert von features.js).
+   Vorher-Zustand nur mit html.fxon, damit ohne JavaScript alles sichtbar bleibt. */
+.fxon .fxw .fx-a{opacity:0}
+.fxon .fxw.fxplay .fx-a{animation:fxIn .6s cubic-bezier(.2,.7,.2,1) var(--fd,0s) both}
+@keyframes fxIn{from{opacity:0;translate:0 10px}to{opacity:1;translate:0 0}}
+.fxon .fxw.fxplay .fx-a.fx-side{animation-name:fxSide}
+@keyframes fxSide{from{opacity:0;translate:-14px 0}to{opacity:1;translate:0 0}}
+.fxon .fxw.fxplay .fx-a.fx-me{animation-name:fxMe}
+@keyframes fxMe{from{opacity:0;translate:14px 6px;scale:.96}to{opacity:1;translate:0 0;scale:1}}
+
+/* Balken wachsen, Diagramme steigen */
+.fxon .fxw:not(.fxplay) .bar i{width:0!important}
+.fxon .fxw.fxplay .bar i{animation:fxW 1.3s cubic-bezier(.2,.7,.2,1) var(--fd,.3s) both}
+@keyframes fxW{from{width:0}}
+.fxon .fxw .spark i{transform-origin:50% 100%}
+.fxon .fxw.fxplay .spark i.fx-a{animation-name:fxGrow;animation-duration:.8s}
+@keyframes fxGrow{from{opacity:1;scale:1 0}to{opacity:1;scale:1 1}}
+
+/* Hervorheben mit kleinem Sprung */
+.fxon .fxw.fxplay .fx-pop{animation:fxPop .55s cubic-bezier(.3,1.6,.5,1) var(--fp,1s) both}
+@keyframes fxPop{0%{scale:.6;opacity:0}100%{scale:1;opacity:1}}
+
+/* Ruhiges Pulsieren für aktive Elemente */
+.fxw.fxplay .fx-pulse{animation:fxPulse 2.4s ease-in-out var(--fp,1.4s) infinite}
+@keyframes fxPulse{0%,100%{box-shadow:0 0 0 0 #2A4DD100}35%{box-shadow:0 0 0 6px #2A4DD126}}
+.fxw.fxplay .fx-glow{animation:fxGlow 2.8s ease-in-out var(--fp,1.4s) infinite}
+@keyframes fxGlow{0%,100%{filter:brightness(1)}50%{filter:brightness(1.12)}}
+.fxw.fxplay .wb-live{animation:fxLive 1.4s ease-in-out infinite}
+@keyframes fxLive{50%{opacity:.55}}
+
+/* Glanz läuft über Buttons */
+.fxw .fx-shine{position:relative;overflow:hidden}
+.fxw.fxplay .fx-shine::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 30%,#ffffff8c 50%,transparent 70%);translate:-100% 0;animation:fxShine 3.2s ease-in-out var(--fp,1.6s) infinite}
+@keyframes fxShine{0%{translate:-100% 0}45%,100%{translate:100% 0}}
+
+/* Wechselnde Hervorhebung (Kanäle, Kundenportal) */
+.fxw .chan-strip span,.fxw .portal-nav>*{transition:background .35s,color .35s,border-color .35s}
+.fxw .chan-strip span.cur{background:var(--blue)!important;border-color:var(--blue)!important;color:#fff!important}
+.fxw.cyc .portal-nav b:not(.cur){background:none;color:inherit;font-weight:500}
+.fxw .portal-nav .cur{background:var(--blue);color:#fff}
+
+/* Pipeline: Karte wandert */
+.fxw .mk-c{transition:background .4s,border-color .4s}
+
+/* Meeting: wer spricht, leuchtet */
+.fxw .meet-grid .mt{transition:box-shadow .3s}
+.fxw .meet-grid .mt.spk{box-shadow:0 0 0 2px #fff,0 0 0 5px #55B5A6}
+.fxw .meet-grid .mt.spk::after{content:"";position:absolute;right:8px;top:8px;width:16px;height:10px;background:linear-gradient(#fff,#fff) 0 100%/3px 40% no-repeat,linear-gradient(#fff,#fff) 6px 100%/3px 100% no-repeat,linear-gradient(#fff,#fff) 12px 100%/3px 60% no-repeat;animation:fxTalk .5s ease-in-out infinite alternate}
+@keyframes fxTalk{to{background-size:3px 90%,3px 35%,3px 100%}}
+
+/* Automation: Signal läuft durch die Verbindungen, Schritte leuchten nacheinander */
+.fxw .fl{position:relative;overflow:visible}
+.fxw.fxplay .fl::after{content:"";position:absolute;left:-2.5px;top:0;width:6px;height:6px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 3px #2A4DD126;animation:fxDot 2.4s linear calc(var(--k,0)*.6s + 1.2s) infinite}
+@keyframes fxDot{0%{top:-3px;opacity:0}10%{opacity:1}40%{top:9px;opacity:1}50%,100%{top:9px;opacity:0}}
+.fxw.fxplay .fn{animation:fxNode 2.4s ease-in-out calc(var(--k,0)*.6s + 1.2s) infinite}
+@keyframes fxNode{0%,100%{border-color:var(--line);box-shadow:none}18%{border-color:var(--blue);box-shadow:0 0 0 4px #2A4DD11f}}
+
+/* Bewertung: Sterne füllen sich */
+.fxw .fx-stars{display:inline-flex;gap:2px}
+.fxw .fx-stars span{display:inline-block}
+.fxon .fxw:not(.fxplay) .fx-stars span{opacity:.18}
+.fxon .fxw.fxplay .fx-stars span{animation:fxPop .45s cubic-bezier(.3,1.6,.5,1) calc(var(--k)*.12s + .5s) both}
+
+/* Status wechselt (z. B. „Antwort ausstehend“ → „Beantwortet“) */
+.fxw .fx-swap{transition:background .35s,color .35s}
+.fxw .fx-swap.sw{animation:fxPop .5s cubic-bezier(.3,1.6,.5,1) both}
+
+/* Mediathek: Upload-Fortschritt */
+.fxw[data-fx="media"] .row-b{position:relative}
+.fxw[data-fx="media"].fxplay .row-b::after{content:"";position:absolute;left:0;bottom:-1px;height:2px;border-radius:2px;background:var(--grad);width:100%;transform-origin:0 50%;animation:fxUp 1.4s cubic-bezier(.4,0,.2,1) calc(var(--fd,0s) + .2s) both}
+@keyframes fxUp{0%{transform:scaleX(0);opacity:1}80%{transform:scaleX(1);opacity:1}100%{transform:scaleX(1);opacity:0}}
+
+/* Kurse: Play-Fläche atmet */
+.fxw.fxplay .fx-play{animation:fxGlow 3s ease-in-out 1s infinite}
+
+@media (prefers-reduced-motion:reduce){
+  .fxw *,.fxw *::after{animation:none!important;transition:none!important}
+}
+
+/* Alle Mockups hell: Kundenportal-Menü mit heller Trennlinie */
+.feat .portal-nav{border-color:var(--line)}
+.feat .portal-nav span{color:#475467}
+
+/* Endlosschleife: kurz ausblenden, dann neu aufbauen */
+.fxw .win-body{transition:opacity .4s ease}
+.fxw.fxout .win-body{opacity:0}
