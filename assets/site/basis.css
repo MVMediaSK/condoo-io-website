@@ -530,3 +530,11 @@ svg{width:18px;height:18px;fill:currentColor}
   .js .db-toast,.js .db-line,.js .db-bars i{transition:none}
   .db-live i{animation:none}
 }
+
+/* Kurz erklärt: zwei, drei Sätze als direkte Antwort (für Leser, Google und KI-Antwortmaschinen) */
+.kurz{padding:56px 0 0}
+.kurz-box{max-width:920px;margin:0 auto;position:relative;padding:22px 28px 22px 32px;background:#fff;border:1px solid var(--line);border-radius:var(--r);box-shadow:0 1px 2px #0e1a2b0a}
+.kurz-box::before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:4px;border-radius:0 4px 4px 0;background:var(--grad)}
+.kurz-k{margin:0 0 6px;font:600 12px/1.2 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--blue)}
+.kurz-a{margin:0;font-size:17px;line-height:1.6;color:var(--text)}
+@media (max-width:560px){.kurz{padding-top:40px}.kurz-box{padding:18px 18px 18px 22px}.kurz-a{font-size:16px}}

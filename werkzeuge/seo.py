@@ -6,12 +6,17 @@ Schreibt zwischen <!--#seo--> und <!--/seo--> im <head>:
 canonical, Open Graph, Twitter Card und strukturierte Daten (JSON-LD).
 Titel und Beschreibung kommen aus <title> und <meta name="description"> der Seite.
 Das Teilen-Bild wird nur eingetragen, wenn /assets/og/condooos-share.jpg existiert.
-Seiten mit noindex werden übersprungen."""
-import html, json, pathlib, re
+Seiten mit noindex werden übersprungen.
+Aktualisierungsdatum (dateModified + sitemap.xml lastmod): ändert sich nur, wenn sich der
+Seiteninhalt (ohne SEO-Block) ändert – erkannt per Prüfsumme im Marker <!--#seo h=… d=…-->.
+Die Kurzantwort aus <!--#kurz--> wird als „abstract“ eingetragen."""
+import datetime, hashlib, html, json, pathlib, re
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 BASE = 'https://condoo.io'
 OG_IMG = ROOT / 'assets/og/condooos-share.jpg'
+
+TODAY = datetime.date.today().isoformat()
 
 ORG = {
     '@type': 'Organization', '@id': BASE + '/#org', 'name': 'condoo Systems OOD', 'brand': {'@type': 'Brand', 'name': 'condooOS'},
@@ -37,7 +42,12 @@ def faq(t):
             items.append({'@type': 'Question', 'name': q, 'acceptedAnswer': {'@type': 'Answer', 'text': a}})
     return items
 
-def build(page, t):
+def hash_of(t):
+    # ohne SEO-Block und ohne ?v=… (Cache-Versionen ändern den Inhalt nicht)
+    t = re.sub(r'<!--#seo.*?<!--/seo-->', '', t, flags=re.S)
+    return hashlib.sha1(re.sub(r'\?v=\w+', '', t).encode()).hexdigest()[:10]
+
+def build(page, t, mod):
     rel = page.parent.relative_to(ROOT).as_posix()
     url = BASE + '/' + ('' if rel == '.' else rel + '/')
     title = text(re.search(r'<title>(.*?)</title>', t, re.S).group(1))
@@ -55,10 +65,14 @@ def build(page, t):
                  '<meta property="og:image:height" content="630">', '<meta property="og:image:alt" content="condooOS – Die All-in-One für Europa">',
                  f'<meta name="twitter:image" content="{img}">']
     graph = [ORG]
+    k = re.search(r'<p class="kurz-a">(.*?)</p>', t, re.S)
+    page_ld = {'@type': 'WebPage', '@id': url, 'url': url, 'name': title, 'description': desc, 'inLanguage': 'de', 'isPartOf': {'@id': BASE + '/#web'}, 'dateModified': mod}
+    if k:
+        page_ld['abstract'] = text(k.group(1))
     if rel == '.':
-        graph += [{'@type': 'WebSite', '@id': BASE + '/#web', 'url': BASE + '/', 'name': 'condooOS', 'inLanguage': 'de', 'publisher': {'@id': BASE + '/#org'}}, APP]
+        graph += [{'@type': 'WebSite', '@id': BASE + '/#web', 'url': BASE + '/', 'name': 'condooOS', 'inLanguage': 'de', 'publisher': {'@id': BASE + '/#org'}}, page_ld, APP]
     else:
-        graph.append({'@type': 'WebPage', '@id': url, 'url': url, 'name': title, 'description': desc, 'inLanguage': 'de', 'isPartOf': {'@id': BASE + '/#web'},
+        graph.append({**page_ld,
                       'breadcrumb': {'@type': 'BreadcrumbList', 'itemListElement': [
                           {'@type': 'ListItem', 'position': 1, 'name': 'condooOS', 'item': BASE + '/'},
                           {'@type': 'ListItem', 'position': 2, 'name': title.split(' – ')[0].split(' · ')[0], 'item': url}]}})
@@ -68,19 +82,31 @@ def build(page, t):
     if q:
         graph.append({'@type': 'FAQPage', '@id': url + '#faq', 'mainEntity': q})
     ld = json.dumps({'@context': 'https://schema.org', '@graph': graph}, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/')
-    return '<!--#seo-->\n' + '\n'.join(tags) + f'\n<script type="application/ld+json">{ld}</script>\n<!--/seo-->'
+    return f'<!--#seo h={hash_of(t)} d={mod}-->\n' + '\n'.join(tags) + f'\n<script type="application/ld+json">{ld}</script>\n<!--/seo-->'
 
+lastmod = {}
 for page in sorted(ROOT.glob('**/index.html')):
     if '.git' in page.parts or page.name.startswith('._') or 'werkzeuge' in page.parts:
         continue
     t = page.read_text(encoding='utf-8')
     if re.search(r'<meta name="robots" content="[^"]*noindex', t):
         continue
-    block = build(page, t)
-    if '<!--#seo-->' in t:
-        neu = re.sub(r'<!--#seo-->.*?<!--/seo-->', lambda m: block, t, flags=re.S)
+    old = re.search(r'<!--#seo h=(\w+) d=([\d-]+)-->', t)
+    mod = old.group(2) if old and old.group(1) == hash_of(t) else TODAY
+    rel = page.parent.relative_to(ROOT).as_posix()
+    lastmod[BASE + '/' + ('' if rel == '.' else rel + '/')] = mod
+    block = build(page, t, mod)
+    if re.search(r'<!--#seo[ -]', t):
+        neu = re.sub(r'<!--#seo[^>]*-->.*?<!--/seo-->', lambda m: block, t, flags=re.S)
     else:
         neu = t.replace('</head>', block + '\n</head>', 1)
     if neu != t:
         page.write_text(neu, encoding='utf-8')
         print('SEO:', page.relative_to(ROOT))
+
+sm = ROOT / 'sitemap.xml'
+if sm.exists():
+    x = sm.read_text(encoding='utf-8')
+    y = re.sub(r'<loc>([^<]+)</loc><lastmod>([^<]*)</lastmod>', lambda m: f'<loc>{m.group(1)}</loc><lastmod>{lastmod.get(m.group(1), m.group(2))}</lastmod>', x)
+    if y != x:
+        sm.write_text(y, encoding='utf-8'); print('Sitemap: lastmod aktualisiert')

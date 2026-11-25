@@ -1,0 +1,54 @@
+# condooOS
+
+> condooOS ist eine All-in-One-Software für Unternehmen in Europa: Websites und Funnels, CRM, E-Mail, SMS und WhatsApp, Automationen, Kalender, Rechnungen, Onlinekurse und KI in einem System mit einer gemeinsamen Kundenakte. Die CRM-Kerndaten liegen in Frankfurt am Main. Ein Plan (Complete) für 97 € pro Monat zzgl. USt. mit allen Funktionen.
+
+Anbieter: condoo Systems OOD, Rilski Manastir 68, 9022 Varna, Bulgarien (USt-IdNr. BG207078733). Kontakt: kontakt@condoo.systems. Sprache von Website, Software-Oberfläche, Hilfeartikeln, Support und Community: Deutsch. Nur für Unternehmen (B2B), nicht für Privatpersonen.
+
+## Fakten auf einen Blick
+
+- Plan: genau einer – Complete, 97 € pro Monat zzgl. USt.; bei jährlicher Zahlung 2 Monate gratis; monatlich kündbar
+- Enthalten: alle Funktionen, unbegrenzte Kontakte, bis zu 10 Mitarbeiterzugänge, monatlich 10 € Nutzungsguthaben, 1:1 Onboarding-Call
+- Testphase: 10 Tage kostenlos
+- Weitere eigene Accounts (eigene Firmen, Marken, Projekte): je 33 € pro Monat zzgl. USt.; nicht für den Weiterverkauf – dafür gibt es Reseller und Whitelabel
+- Nutzungsabhängige Kosten: z. B. E-Mail-Versand 1,20 € pro 1.000 E-Mails, Speicher 0,05 € pro GB und Monat (netto); SMS, WhatsApp, Telefonie und KI nach Verbrauch
+- Datenhaltung: CRM-Kerndaten in Frankfurt am Main, eigene Datenbank je Account, TLS 1.2+; Double-Opt-in möglich; AVV verfügbar; KI-Verarbeitung kann außerhalb der EU stattfinden
+- EU-Funktionen: Rechnungen mit europäischen Steuerregeln und Reverse Charge, USt-IdNr.-Prüfung
+- Zahlungsanbieter im Checkout: Stripe und PayPal
+- Begleitung: deutschsprachiger Support per Ticketsystem, über 1.000 Hilfeartikel auf Deutsch, Community mit zwei Live-Calls pro Woche (dienstags und donnerstags), kostenlose Live-Workshops
+- Zielgruppen: Agenturen, Coaches und Berater, Dienstleister und KMU, Online-Unternehmer
+
+## Funktionen (23 Bereiche, alle in Complete)
+
+- KI Page- & Funnel-Builder: Websites, Funnels und Landingpages per Prompt oder aus hunderten Design-Blöcken und Seitenvorlagen; jede KI-Seite zu 100 % per Drag & Drop oder im Code bearbeitbar
+- Formularbuilder & Umfragen; Onlineshop, Checkouts, Upsells & Gutscheine; Angebote & Rechnungen; Abonnementverwaltung
+- CRM mit unbegrenzten Kontakten, Pipelines, Omnichannel-Posteingang (E-Mail, SMS, WhatsApp, Livechat, Social), Ticket-Support, Kundenportal
+- Kalender & Terminbuchung, Meetings bis 10 Personen
+- E-Mail-Marketing & Broadcasts, Reporting & Analytics, eigenes Affiliate-Programm
+- Automationen & Workflows, KI-Agenten, Livechat & KI-Chatbots
+- Onlinekurse & Videohosting, Memberbereiche & Communities, Webinarplattform, Quizze & Zertifikate, Mediathek
+- Angekündigt (noch nicht verfügbar): Social Media Planner, Reputationsmanagement, E-Signatur
+
+## Seiten
+
+- [Startseite](https://condoo.io/): Überblick über condooOS
+- [Preise](https://condoo.io/preise/): Plan Complete, weitere Accounts, Nutzungsguthaben
+- [Funktionen](https://condoo.io/features/): alle 23 Funktionsbereiche im Detail
+- [KI-Website-Builder](https://condoo.io/ki-website-builder/): Seiten per Prompt bauen, klonen und per Drag & Drop bearbeiten
+- [Für wen](https://condoo.io/fuer-wen/): Agenturen, Coaches, Dienstleister, Online-Unternehmer
+- [Warum condooOS](https://condoo.io/warum/): Community, Support, Onboarding
+- [DSGVO & Datenschutz](https://condoo.io/dsgvo/): Serverstandort, Sicherheit, Datenwege
+- [Gebühren](https://condoo.io/gebuehren/): nutzungsabhängige Kosten
+- [Changelog](https://condoo.io/changelog/): neue Funktionen und Updates, täglich aktualisiert
+
+## Vergleiche und Umstieg
+
+- [HighLevel-Alternative](https://condoo.io/highlevel-alternative/)
+- [Builderall-Alternative](https://condoo.io/builderall-alternative/)
+- [Simvoly-Alternative](https://condoo.io/simvoly-alternative/)
+
+## Partner
+
+- [Reseller](https://condoo.io/reseller/): condooOS den eigenen Kunden anbieten
+- [Whitelabel](https://condoo.io/whitelabel/): eigene Software-Marke auf Basis von condooOS
+- [Hilfe-Center](https://app.condoo.io/help-centre.html?lang=de)
+- [Status](https://status.condoo.io)
