@@ -22,8 +22,8 @@ document.documentElement.classList.add('js');
     const $ = id => document.getElementById(id);
     const fmt = (n, eur) => n.toLocaleString('de-DE');
     const setNum = (el, n) => { el.textContent = fmt(n); el.dataset.to = n; };
-    const count = (el, to, ms = 900) => {
-      const from = Math.round(to * .72), t0 = performance.now();
+    const count = (el, to, ms = 900, from = Math.round(to * .72)) => {
+      const t0 = performance.now();
       const step = t => { const k = Math.min(1, (t - t0) / ms), e = 1 - Math.pow(1 - k, 3); el.textContent = fmt(Math.round(from + (to - from) * e)); if (k < 1) requestAnimationFrame(step); };
       requestAnimationFrame(step);
     };
@@ -44,23 +44,48 @@ document.documentElement.classList.add('js');
         const last = anna.getBoundingClientRect();
         anna.animate([{ transform: `translate(${first.left - last.left}px,${first.top - last.top}px)` }, { transform: 'none' }], { duration: 700, easing: 'cubic-bezier(.2,.7,.2,1)' });
         anna.classList.add('flash');
-        count($('k-rev'), 13680, 700);
+        count($('k-rev'), 13680, 700, 12480);
       } else setNum($('k-rev'), 13680);
     };
     const newLead = () => { $('card-new').classList.add('in'); $('n-neu').textContent = '3'; setNum($('k-contacts'), 249); };
     if (reduce) { dash.classList.add('go'); newLead(); winDeal(false); toast('t3'); }
     else {
-      let started = false;
-      const run = () => {
-        if (started) return; started = true;
-        dash.classList.add('go');
-        dash.querySelectorAll('[data-to]').forEach(el => count(el, +el.dataset.to));
-        setTimeout(() => { toast('t1'); newLead(); }, 1300);
-        setTimeout(() => { toast('t2'); anna.classList.add('flash'); }, 2900);
-        setTimeout(() => { toast('t1', false); anna.classList.remove('flash'); winDeal(true); toast('t3'); }, 4600);
-        setTimeout(() => toast('t2', false), 7200);
+      // Ausgangszustand merken, damit die Szene endlos von vorn starten kann
+      const home = anna.parentElement, homeNext = anna.nextElementSibling, tag = anna.querySelector('.db-tag');
+      const start = { tagC: tag.className, tagT: tag.textContent, ges: $('n-ges').textContent, won: $('n-won').textContent, neu: $('n-neu').textContent,
+        rev: $('k-rev').dataset.to, contacts: $('k-contacts').dataset.to };
+      const reset = () => {
+        ['t1', 't2', 't3'].forEach(t => toast(t, false));
+        const first = anna.getBoundingClientRect();
+        home.insertBefore(anna, homeNext);
+        anna.classList.remove('won', 'flash'); tag.className = start.tagC; tag.textContent = start.tagT;
+        const last = anna.getBoundingClientRect();
+        anna.animate([{ transform: `translate(${first.left - last.left}px,${first.top - last.top}px)` }, { transform: 'none' }], { duration: 700, easing: 'cubic-bezier(.2,.7,.2,1)' });
+        $('card-new').classList.remove('in');
+        $('n-ges').textContent = start.ges; $('n-won').textContent = start.won; $('n-neu').textContent = start.neu;
+        setNum($('k-rev'), +start.rev); setNum($('k-contacts'), +start.contacts);
+        dash.classList.remove('go');
       };
-      new IntersectionObserver((e, o) => { if (e[0].isIntersecting) { run(); o.disconnect(); } }, { threshold: .35 }).observe(dash);
+      // Zeitplan einer Runde (ms); läuft nur, solange das Dashboard sichtbar ist
+      const plan = [
+        [0, () => { dash.classList.add('go'); dash.querySelectorAll('[data-to]').forEach(el => count(el, +el.dataset.to)); }],
+        [1300, () => { toast('t1'); newLead(); }],
+        [2900, () => { toast('t2'); anna.classList.add('flash'); }],
+        [4600, () => { toast('t1', false); anna.classList.remove('flash'); winDeal(true); toast('t3'); }],
+        [7200, () => toast('t2', false)],
+        [10400, reset]
+      ], ROUND = 11400;
+      let t = 0, k = 0, vis = false, last = 0;
+      const tick = now => {
+        if (vis && !document.hidden) {
+          t += Math.min(100, now - last);
+          while (k < plan.length && t >= plan[k][0]) plan[k++][1]();
+          if (t >= ROUND) { t = 0; k = 0; }
+        }
+        last = now; requestAnimationFrame(tick);
+      };
+      new IntersectionObserver(e => { vis = e[0].isIntersecting; }, { threshold: .35 }).observe(dash);
+      requestAnimationFrame(n => { last = n; tick(n); });
     }
   }
 
