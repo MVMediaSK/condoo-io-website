@@ -41,6 +41,10 @@ Anbieter: condoo Systems OOD, Rilski Manastir 68, 9022 Varna, Bulgarien (USt-IdN
 - [Kontakt](https://condoo.io/kontakt/): Kontaktformular für Fragen, Umzugs-Calls, Reseller und Whitelabel
 - [Changelog](https://condoo.io/changelog/): neue Funktionen und Updates, täglich aktualisiert
 
+## Kostenlose Tools
+- [DNS Check](https://condoo.io/tools/dns-check/): DNS-Einträge einer Domain prüfen (A, AAAA, CNAME, MX, TXT, NS, SOA, CAA), DNS-Änderungen kontrollieren, E-Mail-Domain mit SPF, DMARC und DKIM prüfen – ohne Anmeldung
+- [Social Share Debugger](https://condoo.io/tools/share-debugger/): zeigt, wie ein Link auf Facebook, LinkedIn und WhatsApp aussieht, prüft Open-Graph-Daten und Vorschaubild und erklärt, wie man alte Vorschauen aktualisiert
+
 ## Vergleiche und Umstieg
 
 - [HighLevel-Alternative](https://condoo.io/highlevel-alternative/)
