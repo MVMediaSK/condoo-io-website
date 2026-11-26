@@ -123,12 +123,15 @@ if ($code !== 200 || !is_array($j) || empty($j['booking_id'])) antwort(502, ['ok
 $key = getenv('CONDOO_API_KEY') ?: '';
 if ($key === '') {
   foreach ([dirname($_SERVER['DOCUMENT_ROOT'] ?? __DIR__) . '/private/condoo-api-key.txt', dirname(__DIR__, 2) . '/private/condoo-api-key.txt'] as $datei) {
-    if (is_readable($datei)) { $key = trim(file_get_contents($datei)); break; }
+    if (is_readable($datei)) { $key = (string)file_get_contents($datei); break; }
   }
 }
+// Key robust aus der Datei holen (BOM, Leerzeichen, Zeilenumbrüche, Anführungszeichen egal)
+$key = preg_match('~\b([st]k_[A-Za-z0-9_-]{8,})~', $key, $m) ? $m[1] : '';
 $kontakt = (string)($j['contact_id'] ?? '');
 $feld_ok = false;
-if (preg_match('~^sk_[A-Za-z0-9_]+$~', $key) && preg_match('~^[0-9a-f-]{36}$~', $kontakt)) {
+$crm = $key === '' ? 'kein-key' : 'fehler';
+if ($key !== '' && preg_match('~^[0-9a-f-]{36}$~', $kontakt)) {
   $kontakt_api = function ($methode, $body = null) use ($key, $kontakt) {
     $c = curl_init('https://api-eu.condoo.io/api/v1/contacts/' . $kontakt);
     $opt = [CURLOPT_CUSTOMREQUEST => $methode, CURLOPT_RETURNTRANSFER => true, CURLOPT_TIMEOUT => 10, CURLOPT_CONNECTTIMEOUT => 5,
@@ -140,6 +143,7 @@ if (preg_match('~^sk_[A-Za-z0-9_]+$~', $key) && preg_match('~^[0-9a-f-]{36}$~', 
   };
   // condooOS ersetzt custom_data komplett → vorhandene Felder des Kontakts übernehmen (nur Feld-IDs)
   [$code_alt, $alt] = $kontakt_api('GET');
+  if ($code_alt !== 200) $crm = 'lesen-' . $code_alt;
   if ($code_alt === 200 && is_array($alt)) {
     $felder = [];
     foreach ((array)($alt['custom_data'] ?? []) as $k => $v) if (preg_match('~^[0-9a-f-]{36}$~', (string)$k)) $felder[$k] = $v;
@@ -148,6 +152,7 @@ if (preg_match('~^sk_[A-Za-z0-9_]+$~', $key) && preg_match('~^[0-9a-f-]{36}$~', 
     if ($firma !== '') $neu['company_name'] = $firma;
     [$code_neu] = $kontakt_api('PATCH', $neu);
     $feld_ok = $code_neu === 200;
+    $crm = $feld_ok ? 'ok' : 'schreiben-' . $code_neu;
   }
 }
 if (!$feld_ok) error_log('condoo termin.php: Kontaktfeld nicht gesetzt (Key fehlt oder API-Fehler), Buchung ' . $j['booking_id']);
@@ -168,4 +173,4 @@ $ics = (string)($j['add_to_calendar']['ics'] ?? '');
 if (!preg_match('~^https://api-eu\.condoo\.io/~', $ics)) $ics = '';
 
 antwort(200, ['ok' => true, 'datum' => $datum, 'zeit' => $zeit, 'bis' => $ende->format('H:i'),
-              'google' => $google, 'outlook' => $outlook, 'ics' => $ics, 'meeting' => (string)($j['meeting_url'] ?? '')]);
+              'google' => $google, 'outlook' => $outlook, 'ics' => $ics, 'crm' => $crm, 'meeting' => (string)($j['meeting_url'] ?? '')]);
