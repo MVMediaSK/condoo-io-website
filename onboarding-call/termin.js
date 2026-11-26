@@ -177,7 +177,7 @@
   });
 
   var FEHLER = {
-    pflichtfelder: 'Bitte gib Deinen Vornamen und eine gültige E-Mail-Adresse an.',
+    pflichtfelder: 'Bitte gib Vorname, Nachname, eine gültige E-Mail-Adresse und Deine Telefonnummer an.',
     vergeben: 'Dieser Termin wurde gerade vergeben. Bitte such Dir eine andere Uhrzeit aus.',
     'zu-viele': 'Zu viele Versuche in kurzer Zeit. Bitte versuch es in einer Stunde noch einmal.',
     _: 'Die Buchung hat gerade nicht geklappt. Bitte versuch es noch einmal oder schreib uns über das <a href="/kontakt/">Kontaktformular</a>.'
@@ -190,8 +190,9 @@
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     var f = form.elements, ok = true;
-    ['vorname', 'email'].forEach(function (n) {
-      var leer = !f[n].value.trim() || (n === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f[n].value.trim()));
+    ['vorname', 'nachname', 'email', 'telefon'].forEach(function (n) {
+      var v = f[n].value.trim();
+      var leer = !v || (n === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) || (n === 'telefon' && (v.replace(/\D/g, '').length < 6 || /[^\d\s+()\/.-]/.test(v)));
       f[n].classList.toggle('bad', leer);
       f[n].setAttribute('aria-invalid', leer ? 'true' : 'false');
       if (leer && ok) { f[n].focus(); ok = false; }

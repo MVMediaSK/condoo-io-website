@@ -15,7 +15,7 @@
 <script src="/assets/site/site.js?v=d70676bd" defer></script><script src="/assets/site/motion.js?v=f7531816" defer></script>
 <link rel="stylesheet" href="/onboarding-call/onboarding.css?v=9920638f">
 <link rel="stylesheet" href="/kontakt/kontakt.css?v=8201ba0b">
-<script src="/onboarding-call/termin.js?v=daec00ed" defer></script>
+<script src="/onboarding-call/termin.js?v=b238f355" defer></script>
 <link rel="stylesheet" href="/assets/site/motion.css?v=0a2bcaab">
 <link rel="stylesheet" href="/assets/site/footer.css?v=1cc7069b">
 </head>
@@ -117,11 +117,11 @@
         <p class="bk-when"></p>
         <div class="bk-row">
           <label class="kt-f"><span>Vorname <i aria-hidden="true">*</i></span><input name="vorname" autocomplete="given-name" required maxlength="80"></label>
-          <label class="kt-f"><span>Nachname</span><input name="nachname" autocomplete="family-name" maxlength="80"></label>
+          <label class="kt-f"><span>Nachname <i aria-hidden="true">*</i></span><input name="nachname" autocomplete="family-name" required maxlength="80"></label>
         </div>
         <label class="kt-f"><span>E-Mail <i aria-hidden="true">*</i></span><input name="email" type="email" autocomplete="email" required maxlength="160"></label>
         <div class="bk-row">
-          <label class="kt-f"><span>Telefon <small>optional</small></span><input name="telefon" type="tel" autocomplete="tel" maxlength="40"></label>
+          <label class="kt-f"><span>Telefon <i aria-hidden="true">*</i></span><input name="telefon" type="tel" autocomplete="tel" required maxlength="40"></label>
           <label class="kt-f"><span>Firma <small>optional</small></span><input name="firma" autocomplete="organization" maxlength="120"></label>
         </div>
         <label class="kt-f"><span>Was möchtest Du im Call vor allem klären? <small>optional</small></span><textarea name="notiz" rows="3" maxlength="2000"></textarea></label>

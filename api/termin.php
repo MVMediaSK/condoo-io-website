@@ -86,7 +86,9 @@ $datum = $feld('datum', 10); $zeit = $feld('zeit', 5);
 $vorname = $feld('vorname', 80); $nachname = $feld('nachname', 80); $email = $feld('email', 160);
 $telefon = $feld('telefon', 40); $firma = $feld('firma', 120); $notiz = $feld('notiz', 2000);
 if (!datum_ok($datum) || !preg_match('~^\d{2}:\d{2}$~', $zeit)) antwort(422, ['ok' => false, 'fehler' => 'termin']);
-if ($vorname === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) antwort(422, ['ok' => false, 'fehler' => 'pflichtfelder']);
+$ziffern = preg_replace('~\D~', '', $telefon);
+if ($vorname === '' || $nachname === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)
+    || strlen($ziffern) < 6 || !preg_match('~^[\d\s+()/.-]+$~', $telefon)) antwort(422, ['ok' => false, 'fehler' => 'pflichtfelder']);
 
 // Höchstens 5 Buchungsversuche pro Stunde und IP
 $ip = $_SERVER['REMOTE_ADDR'] ?? '';
