@@ -1,6 +1,10 @@
 <?php
 // condoo.io – Onboarding-Call buchen → condooOS-Kalender (öffentliche Buchungs-Schnittstelle)
-// Kein API-Key nötig: genutzt werden nur die öffentlichen Kalender-Endpunkte von condooOS.
+// Buchen läuft über die öffentlichen Kalender-Endpunkte von condooOS (ohne Key).
+// Danach schreibt das Skript „Onboarding-Call Thema“ und Firma in den Kontakt – dafür braucht es einen API-Key,
+// der NICHT im (öffentlichen) Repo liegt, sondern auf dem Server:
+//   Datei  <Domain-Ordner>/private/condoo-api-key.txt  (eine Zeile, sk_…)  oder Umgebungsvariable CONDOO_API_KEY.
+//   Fehlt der Key, wird trotzdem gebucht; das Thema steht dann nur in der Notiz der Buchung.
 //   GET  ?aktion=monat&von=YYYY-MM-DD&bis=YYYY-MM-DD  → freie Termine pro Tag
 //   GET  ?aktion=tag&datum=YYYY-MM-DD                 → freie Uhrzeiten an einem Tag
 //   POST {zeit, datum, vorname, nachname, email, telefon, firma, notiz}  → Termin buchen
@@ -16,6 +20,7 @@ const KALENDER = '01a21950-3834-7829-bc12-11e0c222722d';
 const DIENST   = '01a2194f-fd4b-7175-a300-b6f0501284ba';
 const API      = 'https://api-eu.condoo.io/api/v1/public/calendar/';
 const ZONE     = 'Europe/Bratislava';
+const FELD_THEMA = '01a21979-1202-7db2-b792-8c89ec16a898'; // Kontaktfeld „Onboarding-Call Thema“
 
 function antwort($code, $daten) { http_response_code($code); echo json_encode($daten, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES); exit; }
 
@@ -87,7 +92,7 @@ $vorname = $feld('vorname', 80); $nachname = $feld('nachname', 80); $email = $fe
 $telefon = $feld('telefon', 40); $firma = $feld('firma', 120); $notiz = $feld('notiz', 2000);
 if (!datum_ok($datum) || !preg_match('~^\d{2}:\d{2}$~', $zeit)) antwort(422, ['ok' => false, 'fehler' => 'termin']);
 $ziffern = preg_replace('~\D~', '', $telefon);
-if ($vorname === '' || $nachname === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)
+if ($vorname === '' || $nachname === '' || (function_exists('mb_strlen') ? mb_strlen($notiz) : strlen($notiz)) < 10 || !filter_var($email, FILTER_VALIDATE_EMAIL)
     || strlen($ziffern) < 6 || !preg_match('~^[\d\s+()/.-]+$~', $telefon)) antwort(422, ['ok' => false, 'fehler' => 'pflichtfelder']);
 
 // Höchstens 5 Buchungsversuche pro Stunde und IP
@@ -105,7 +110,7 @@ $slot = null;
 foreach ($frei as $s) if ($s['zeit'] === $zeit) { $slot = $s; break; }
 if (!$slot) antwort(409, ['ok' => false, 'fehler' => 'vergeben']);
 
-$hinweis = trim(($firma !== '' ? "Firma: $firma\n" : '') . ($notiz !== '' ? "Notiz: $notiz\n" : '') . 'Gebucht über condoo.io/onboarding-call/');
+$hinweis = trim(($firma !== '' ? "Firma: $firma\n" : '') . "Thema für den Call: $notiz\n" . 'Gebucht über condoo.io/onboarding-call/');
 [$code, $j, $roh] = condoo('/book', [], [
   'service_id' => DIENST, 'start_time' => $slot['start'], 'end_time' => $slot['ende'], 'booking_mode' => 'slot',
   'first_name' => $vorname, 'last_name' => $nachname, 'email' => $email, 'phone' => $telefon,
@@ -113,6 +118,39 @@ $hinweis = trim(($firma !== '' ? "Firma: $firma\n" : '') . ($notiz !== '' ? "Not
 ]);
 if ($code === 409 || ($code >= 400 && stripos($roh, 'avail') !== false)) antwort(409, ['ok' => false, 'fehler' => 'vergeben']);
 if ($code !== 200 || !is_array($j) || empty($j['booking_id'])) antwort(502, ['ok' => false, 'fehler' => 'buchung']);
+
+// Thema und Firma in den Kontakt schreiben (braucht den API-Key auf dem Server)
+$key = getenv('CONDOO_API_KEY') ?: '';
+if ($key === '') {
+  foreach ([dirname($_SERVER['DOCUMENT_ROOT'] ?? __DIR__) . '/private/condoo-api-key.txt', dirname(__DIR__, 2) . '/private/condoo-api-key.txt'] as $datei) {
+    if (is_readable($datei)) { $key = trim(file_get_contents($datei)); break; }
+  }
+}
+$kontakt = (string)($j['contact_id'] ?? '');
+$feld_ok = false;
+if (preg_match('~^sk_[A-Za-z0-9_]+$~', $key) && preg_match('~^[0-9a-f-]{36}$~', $kontakt)) {
+  $kontakt_api = function ($methode, $body = null) use ($key, $kontakt) {
+    $c = curl_init('https://api-eu.condoo.io/api/v1/contacts/' . $kontakt);
+    $opt = [CURLOPT_CUSTOMREQUEST => $methode, CURLOPT_RETURNTRANSFER => true, CURLOPT_TIMEOUT => 10, CURLOPT_CONNECTTIMEOUT => 5,
+            CURLOPT_HTTPHEADER => ['Authorization: Bearer ' . $key, 'Content-Type: application/json', 'Accept: application/json']];
+    if ($body !== null) $opt[CURLOPT_POSTFIELDS] = json_encode($body, JSON_UNESCAPED_UNICODE);
+    curl_setopt_array($c, $opt);
+    $roh = curl_exec($c);
+    return [(int)curl_getinfo($c, CURLINFO_HTTP_CODE), is_string($roh) ? json_decode($roh, true) : null];
+  };
+  // condooOS ersetzt custom_data komplett → vorhandene Felder des Kontakts übernehmen (nur Feld-IDs)
+  [$code_alt, $alt] = $kontakt_api('GET');
+  if ($code_alt === 200 && is_array($alt)) {
+    $felder = [];
+    foreach ((array)($alt['custom_data'] ?? []) as $k => $v) if (preg_match('~^[0-9a-f-]{36}$~', (string)$k)) $felder[$k] = $v;
+    $felder[FELD_THEMA] = $notiz;
+    $neu = ['custom_data' => $felder];
+    if ($firma !== '') $neu['company_name'] = $firma;
+    [$code_neu] = $kontakt_api('PATCH', $neu);
+    $feld_ok = $code_neu === 200;
+  }
+}
+if (!$feld_ok) error_log('condoo termin.php: Kontaktfeld nicht gesetzt (Key fehlt oder API-Fehler), Buchung ' . $j['booking_id']);
 
 // Kalender-Links selbst bauen (Ortszeit → UTC)
 $tz = new DateTimeZone(ZONE);
