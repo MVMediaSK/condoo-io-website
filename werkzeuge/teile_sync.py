@@ -5,7 +5,9 @@ import pathlib, re
 root = pathlib.Path(__file__).resolve().parent.parent
 master = (root / "index.html").read_text()
 parts = {k: re.search(rf"<!--#{k}-->.*?<!--/{k}-->", master, re.S).group(0) for k in ("kopf", "fuss")}
-for page in sorted(root.glob("*/index.html")):
+for page in sorted(root.glob("**/index.html")):
+    if page == root / "index.html" or page.name.startswith("._") or ".git" in page.parts:
+        continue
     s = page.read_text()
     if "<!--#kopf-->" not in s:
         continue

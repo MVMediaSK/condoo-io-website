@@ -21,6 +21,7 @@ TODAY = datetime.date.today().isoformat()
 ORG = {
     '@type': 'Organization', '@id': BASE + '/#org', 'name': 'condoo Systems OOD', 'brand': {'@type': 'Brand', 'name': 'condooOS'},
     'url': BASE + '/', 'logo': BASE + '/assets/icons/icon-512.png', 'email': 'kontakt@condoo.systems', 'vatID': 'BG207078733',
+    'sameAs': ['https://www.youtube.com/@condooOS', 'https://www.facebook.com/condoo.os'],
     'address': {'@type': 'PostalAddress', 'streetAddress': 'Rilski Manastir 68', 'postalCode': '9022', 'addressLocality': 'Varna', 'addressCountry': 'BG'},
 }
 APP = {

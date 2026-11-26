@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0E1A2B">
+<title>DNS Check – DNS-Einträge Deiner Domain prüfen · condooOS</title>
+<meta name="description" content="Prüfe kostenlos die DNS-Einträge Deiner Domain: A, AAAA, CNAME, MX, TXT, NS, SOA und CAA, DNS-Änderungen, Website- und E-Mail-Domain (SPF, DMARC, DKIM).">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="32x32"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest">
+<link rel="preload" href="/assets/fonts/space-grotesk-latin-variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/fonts/fonts.css?v=556a7a80">
+<link rel="stylesheet" href="/assets/site/basis.css?v=949a5a1c">
+<link rel="stylesheet" href="/assets/site/seiten.css?v=05d62c21">
+<script src="/assets/site/site.js?v=d70676bd" defer></script><script src="/assets/site/motion.js?v=f7531816" defer></script>
+<link rel="stylesheet" href="/tools/dns-check/dns.css?v=84d0cdf6">
+<script src="/tools/dns-check/dns.js?v=52b5a117" defer></script>
+<link rel="stylesheet" href="/assets/site/motion.css?v=0a2bcaab">
+<link rel="stylesheet" href="/assets/site/footer.css?v=1cc7069b">
+</head>
+<body>
+<a class="skip" href="#main">Zum Inhalt</a>
+<!--#kopf-->
+<header class="nav" id="top">
+  <div class="nav-in">
+    <a href="/" class="nav-brand" aria-label="condooOS Startseite"><img src="/assets/condooos-logo.svg" alt="condooOS" width="150" height="44"></a>
+    <nav class="nav-links" id="nav" aria-label="Hauptnavigation">
+      <a href="/features/">Funktionen</a>
+      <a href="/warum/">Warum condooOS?</a>
+      <a href="/fuer-wen/">Für wen?</a>
+      <a href="/dsgvo/">DSGVO</a>
+      <a href="/preise/">Preise</a>
+      <a href="https://app.condoo.io" class="nav-login-m">Login</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="https://app.condoo.io" class="nav-login">Login</a>
+      <a href="/checkout-complete" class="btn btn-sm">10 Tage testen</a>
+      <button class="nav-toggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="nav"><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+<!--/kopf-->
+
+<main id="main">
+
+<div class="dc">
+<section class="dc-hero">
+  <div class="dc-wrap">
+    <p class="dc-kicker"><a href="/tools/">Tools</a> <span aria-hidden="true">/</span> DNS Check</p>
+    <h1>Prüfe die DNS-Einträge <span class="grad">Deiner Domain.</span></h1>
+    <p class="dc-sub">Finde heraus, wohin Deine Domain zeigt, ob eine Änderung schon sichtbar ist und wie Deine E-Mail-Domain eingerichtet ist.</p>
+
+    <form class="dc-search" id="dc-form" novalidate>
+      <div class="dc-glow" aria-hidden="true"></div>
+      <div class="dc-main">
+        <label class="dc-label" for="dc-domain">Domain oder URL</label>
+        <div class="dc-inputrow">
+          <input id="dc-domain" name="domain" type="text" inputmode="url" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="z. B. beispiel.de" aria-describedby="dc-domain-hint">
+          <button class="dc-btn" id="dc-go" type="submit">Domain prüfen</button>
+        </div>
+        <p class="dc-hint" id="dc-domain-hint">Für die Prüfung wird der eingegebene Hostname an die angezeigten DNS-Anbieter übermittelt.</p>
+      </div>
+
+      <div class="dc-tabs" role="tablist" aria-label="Art der Prüfung">
+        <button type="button" role="tab" id="tab-uebersicht" aria-controls="view-uebersicht" aria-selected="true" data-view="uebersicht">DNS-Übersicht</button>
+        <button type="button" role="tab" id="tab-aenderung" aria-controls="view-aenderung" aria-selected="false" tabindex="-1" data-view="aenderung">DNS-Änderung prüfen</button>
+        <button type="button" role="tab" id="tab-website" aria-controls="view-website" aria-selected="false" tabindex="-1" data-view="website">Website-Domain</button>
+        <button type="button" role="tab" id="tab-email" aria-controls="view-email" aria-selected="false" tabindex="-1" data-view="email">E-Mail-Domain</button>
+        <button type="button" role="tab" id="tab-anbieter" aria-controls="view-anbieter" aria-selected="false" tabindex="-1" data-view="anbieter">Anbieter-Eintrag</button>
+      </div>
+
+      <div class="dc-extra" data-for="aenderung" hidden>
+        <label class="dc-f"><span>Eintragstyp</span>
+          <select id="dc-ae-typ"><option>A</option><option>AAAA</option><option>CNAME</option><option>MX</option><option>TXT</option><option>NS</option><option>SOA</option><option>CAA</option></select>
+        </label>
+        <label class="dc-f dc-grow"><span>Erwarteter Wert <small>optional</small></span>
+          <input id="dc-ae-soll" type="text" autocomplete="off" spellcheck="false" placeholder="z. B. 203.0.113.10">
+        </label>
+      </div>
+      <div class="dc-extra" data-for="email" hidden>
+        <label class="dc-f dc-grow"><span>DKIM-Selektor <small>optional</small></span>
+          <input id="dc-dkim" type="text" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="z. B. selector1" aria-describedby="dc-dkim-hint">
+        </label>
+        <p class="dc-hint" id="dc-dkim-hint">Den Selektor gibt Dein Mailanbieter vor, z. B. in der Anleitung zur DKIM-Einrichtung.</p>
+      </div>
+      <div class="dc-extra" data-for="anbieter" hidden>
+        <label class="dc-f dc-grow"><span>Hostname</span>
+          <input id="dc-an-host" type="text" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="z. B. _dmarc oder @" aria-describedby="dc-an-full">
+        </label>
+        <label class="dc-f"><span>Eintragstyp</span>
+          <select id="dc-an-typ"><option>CNAME</option><option>TXT</option></select>
+        </label>
+        <label class="dc-f dc-full"><span>Erwarteter Wert</span>
+          <input id="dc-an-soll" type="text" autocomplete="off" spellcheck="false" placeholder="Wert aus der Anleitung Deines Anbieters">
+        </label>
+        <p class="dc-hint dc-full" id="dc-an-full" aria-live="polite"></p>
+      </div>
+      <p class="dc-error" id="dc-error" role="alert" hidden></p>
+    </form>
+  </div>
+</section>
+
+<section class="dc-results">
+  <div class="dc-wrap">
+    <p class="dc-status" id="dc-status" role="status" aria-live="polite"></p>
+    <div id="view-uebersicht" class="dc-view" role="tabpanel" aria-labelledby="tab-uebersicht" tabindex="-1"></div>
+    <div id="view-aenderung" class="dc-view" role="tabpanel" aria-labelledby="tab-aenderung" tabindex="-1" hidden></div>
+    <div id="view-website" class="dc-view" role="tabpanel" aria-labelledby="tab-website" tabindex="-1" hidden></div>
+    <div id="view-email" class="dc-view" role="tabpanel" aria-labelledby="tab-email" tabindex="-1" hidden></div>
+    <div id="view-anbieter" class="dc-view" role="tabpanel" aria-labelledby="tab-anbieter" tabindex="-1" hidden></div>
+    <p class="dc-copied" id="dc-copied" role="status" aria-live="polite"></p>
+  </div>
+</section>
+</div>
+
+</main>
+
+<!--#fuss-->
+<footer class="foot ft">
+  <div class="ft-in">
+    <div class="ft-top">
+      <p class="ft-claim">Dein Business. Ein System.<br><span>Ohne Tool-Chaos.</span></p>
+      <div class="ft-cta"><a class="ft-btn" href="/checkout-complete">10 Tage kostenlos testen <span aria-hidden="true">→</span></a><a class="ft-ghost" href="https://app.condoo.io">Login</a></div>
+    </div>
+    <div class="ft-grid">
+      <div class="ft-brand">
+        <a href="/" aria-label="condooOS Startseite"><img src="/assets/condooos-logo-light.svg" alt="condooOS – Built for Europe" width="168" height="49" loading="lazy"></a>
+        <p>Die All-in-One für Europa. Websites, CRM, Kommunikation, Automationen und Kurse in einem System – mit Servern in Frankfurt.</p>
+        <a class="ft-status" href="https://status.condoo.io" target="_blank" rel="noopener"><i aria-hidden="true"></i>Systemstatus ansehen <span aria-hidden="true">↗</span></a>
+      </div>
+      <nav aria-label="Produkt"><b>Produkt</b><a href="/features/">Funktionen</a><a href="/ki-website-builder/">KI-Website-Builder</a><a href="/preise/">Preise</a><a href="/fuer-wen/">Für wen?</a><a href="/warum/">Warum condooOS?</a></nav>
+      <nav aria-label="Vergleiche und Umstieg"><b>Vergleiche &amp; Umstieg</b><a href="/highlevel-alternative/">condooOS vs. HighLevel</a><a href="/builderall-alternative/">condooOS vs. Builderall</a><a href="/simvoly-alternative/">condooOS vs. Simvoly</a><a href="/highlevel-alternative/#umzug">Kostenlose Umzugshilfe</a><a href="/dsgvo/">DSGVO &amp; Datenschutz</a></nav>
+      <nav aria-label="Hilfe und Ressourcen"><b>Hilfe &amp; Ressourcen</b><a href="https://app.condoo.io/help-centre.html?lang=de" target="_blank" rel="noopener">Hilfe-Center <span aria-hidden="true">↗</span></a><a href="https://status.condoo.io" target="_blank" rel="noopener">Systemstatus <span aria-hidden="true">↗</span></a><a href="/changelog/">Changelog</a><a href="/gebuehren/">Gebühren</a><a href="/warum/#persoenlich">Persönlicher Support</a><a href="/kontakt/">Kontakt</a></nav>
+      <nav aria-label="Partner"><b>Partner</b><a href="/reseller/">Reseller</a><a href="/whitelabel/">Whitelabel</a><a href="/condoo-paws/">condoo.Paws</a></nav>
+      <nav aria-label="Rechtliches"><b>Rechtliches</b><a href="/impressum/">Impressum</a><a href="/datenschutz/">Datenschutz</a><a href="/avv/">AVV</a><a href="/nutzungsbedingungen/">Nutzungsbedingungen</a><a href="/affiliate-agb/">Affiliate-AGB</a><a href="/agb-reseller/">Reseller &amp; Whitelabel</a></nav>
+    </div>
+    <div class="ft-bottom"><span>© 2026 condoo Systems OOD · Varna, Bulgarien</span><span class="ft-badges"><span>Server in Frankfurt</span><span>DSGVO-ready</span><span class="mono">Built for Europe ✦</span></span></div>
+  </div>
+</footer>
+<!--/fuss-->
+</body>
+</html>

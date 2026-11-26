@@ -2,7 +2,7 @@
 
 > condooOS ist eine All-in-One-Software für Unternehmen in Europa: Websites und Funnels, CRM, E-Mail, SMS und WhatsApp, Automationen, Kalender, Rechnungen, Onlinekurse und KI in einem System mit einer gemeinsamen Kundenakte. Die CRM-Kerndaten liegen in Frankfurt am Main. Ein Plan (Complete) für 97 € pro Monat zzgl. USt. mit allen Funktionen.
 
-Anbieter: condoo Systems OOD, Rilski Manastir 68, 9022 Varna, Bulgarien (USt-IdNr. BG207078733). Kontakt: kontakt@condoo.systems. Sprache von Website, Software-Oberfläche, Hilfeartikeln, Support und Community: Deutsch. Nur für Unternehmen (B2B), nicht für Privatpersonen.
+Anbieter: condoo Systems OOD, Rilski Manastir 68, 9022 Varna, Bulgarien (USt-IdNr. BG207078733). Kontakt: kontakt@condoo.systems oder Kontaktformular unter https://condoo.io/kontakt/. Social Media: YouTube https://www.youtube.com/@condooOS, Facebook https://www.facebook.com/condoo.os. Sprache von Website, Software-Oberfläche, Hilfeartikeln, Support und Community: Deutsch. Nur für Unternehmen (B2B), nicht für Privatpersonen.
 
 ## Fakten auf einen Blick
 
@@ -38,6 +38,7 @@ Anbieter: condoo Systems OOD, Rilski Manastir 68, 9022 Varna, Bulgarien (USt-IdN
 - [Warum condooOS](https://condoo.io/warum/): Community, Support, Onboarding
 - [DSGVO & Datenschutz](https://condoo.io/dsgvo/): Serverstandort, Sicherheit, Datenwege
 - [Gebühren](https://condoo.io/gebuehren/): nutzungsabhängige Kosten
+- [Kontakt](https://condoo.io/kontakt/): Kontaktformular für Fragen, Umzugs-Calls, Reseller und Whitelabel
 - [Changelog](https://condoo.io/changelog/): neue Funktionen und Updates, täglich aktualisiert
 
 ## Vergleiche und Umstieg
