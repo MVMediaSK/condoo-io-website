@@ -44,6 +44,7 @@ Anbieter: condoo Systems OOD, Rilski Manastir 68, 9022 Varna, Bulgarien (USt-IdN
 ## Kostenlose Tools
 - [DNS Check](https://condoo.io/tools/dns-check/): DNS-Einträge einer Domain prüfen (A, AAAA, CNAME, MX, TXT, NS, SOA, CAA), DNS-Änderungen kontrollieren, E-Mail-Domain mit SPF, DMARC und DKIM prüfen – ohne Anmeldung
 - [Social Share Debugger](https://condoo.io/tools/share-debugger/): zeigt, wie ein Link auf Facebook, LinkedIn und WhatsApp aussieht, prüft Open-Graph-Daten und Vorschaubild und erklärt, wie man alte Vorschauen aktualisiert
+- [Cookie Check](https://condoo.io/tools/cookie-check/): prüft, ob eine Website beim ersten Aufruf Cookies setzt und ob Tracking-Dienste (z. B. Google Analytics, Meta Pixel), Einbettungen (YouTube, Google Maps), Google Fonts, Anbieter außerhalb der EU und Consent-Banner eingebunden sind – Prüfung ohne JavaScript, ohne Anmeldung
 
 ## Vergleiche und Umstieg
 
