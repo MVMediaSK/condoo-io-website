@@ -55,6 +55,7 @@ Anbieter: condoo Systems OOD, Rilski Manastir 68, 9022 Varna, Bulgarien (USt-IdN
 ## Partner
 
 - [Reseller](https://condoo.io/reseller/): condooOS unter der Marke condooOS an eigene Kunden verkaufen. Reseller 10 (bis zu 10 Kundenaccounts) 297 €/Monat, Reseller Unlimited (unbegrenzt) 397 €/Monat, jeweils zzgl. USt., 10 Tage kostenlos testen. Grundgebühr legt der Reseller selbst fest und rechnet sie selbst ab; Plattformvertrag zwischen Kunde und condooOS, Verbrauch rechnet condooOS direkt mit dem Kunden ab
+- [Affiliate-Programm](https://condoo.io/affiliate-programm/): 30 % wiederkehrende Provision auf die Netto-Grundgebühr vermittelter Kunden (Complete, Reseller 10, Reseller Unlimited, Whitelabel), solange sie zahlen; 10 % auf der 2. Ebene; kostenlos; Auszahlung ab 50 € am 15.–20. des Folgemonats; 60 Tage Zuordnung; Lifestyle-Bonus 500 €/Monat ab 100 und 1.000 €/Monat ab 200 aktiven Kunden
 - [Whitelabel](https://condoo.io/whitelabel/): eigene Software-Marke auf Basis von condooOS. 497 €/Monat zzgl. USt., unbegrenzt viele Kundenaccounts, 10 Tage kostenlos testen. Eigene Verträge und Abrechnung mit den Kunden, eigene Preise und Aufschläge auch auf Verbrauch; Verbrauch zahlt der Partner an condooOS zu den Preisen der Gebührenübersicht (https://condoo.io/gebuehren/), bei größerem Volumen sind bessere Einkaufskonditionen möglich
 - [Hilfe-Center](https://app.condoo.io/help-centre.html?lang=de)
 - [Status](https://status.condoo.io)

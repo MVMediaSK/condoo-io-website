@@ -9,6 +9,7 @@
     umzug: 'Welche Bereiche nutzt Du heute (z. B. Funnels, CRM, Automationen, Kurse)?',
     reseller: 'Erzähl uns kurz von Deinem Business und Deinen Kunden.',
     whitelabel: 'Wie soll Deine eigene Software-Marke aussehen?',
+    affiliate: 'Deine Frage zum Affiliate-Programm.',
     accounts: 'Wie viele weitere Accounts brauchst Du und für welche Projekte?',
     avv: 'Deine Frage zu Datenschutz oder AVV.',
     support: 'Was klappt nicht? Je genauer, desto schneller können wir helfen.',

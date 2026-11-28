@@ -24,7 +24,7 @@ $feld = function ($k, $max) use ($d) {
   $v = isset($d[$k]) && is_string($d[$k]) ? trim(strip_tags($d[$k])) : '';
   return function_exists('mb_substr') ? mb_substr($v, 0, $max) : substr($v, 0, $max);
 };
-$THEMEN = ['frage' => 'Frage zu condooOS', 'umzug' => 'Kostenloser Umzugs-Call', 'reseller' => 'Reseller', 'whitelabel' => 'Whitelabel',
+$THEMEN = ['frage' => 'Frage zu condooOS', 'umzug' => 'Kostenloser Umzugs-Call', 'reseller' => 'Reseller', 'whitelabel' => 'Whitelabel', 'affiliate' => 'Affiliate-Programm',
            'accounts' => 'Weitere Complete-Accounts', 'avv' => 'Datenschutz & AVV', 'support' => 'Hilfe zu meinem Account', 'sonstiges' => 'Sonstiges'];
 $thema = $feld('thema', 20);
 $e = [
