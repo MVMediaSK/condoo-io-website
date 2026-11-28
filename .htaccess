@@ -8,6 +8,9 @@
 
   # Alte Launch-Angebote: endgültig entfernt (410 = „für immer weg“, Google löscht sie aus dem Index)
   RewriteRule ^launch-angebot(/.*)?$ - [G,L]
+
+  # Alter Film-Dateiname (Fassung mit 17 Bereichen) → aktuelle Fassung
+  RewriteRule ^assets/video/condooos-film\.mp4$ /assets/video/condooos-film-v2.mp4 [R=301,L]
 </IfModule>
 
 # Interne Werkzeuge nicht ausliefern
